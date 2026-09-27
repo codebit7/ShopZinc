@@ -1,9 +1,8 @@
 # ShopZinc
 
-A full-stack e-commerce store built with **Express + MongoDB** on the backend and **Preact + Vite + Redux Toolkit**
-on the frontend. It includes a customer storefront, checkout with cash on delivery (and JazzCash, once set up),
-delivery charges, PostEx courier booking and tracking, customer accounts, and an admin panel with sales and
-profit reports. Prices are in Pakistani Rupees (PKR).
+ShopZinc is Production grade e-commerce store with a secure authentication system, cart and wishlist features, and an advanced admin panel for managing products, orders, and users. It also supports PostEx delivery with secure Payment methods Easypaisa, JazzCash, and Cash on Delivery.
+PostEx courier booking and tracking, customer accounts, and an admin panel with sales and
+profit reports are supported. Prices of products are in Pakistani Rupees (PKR).
 
 ---
 
