@@ -89,7 +89,7 @@ shopzinc/
 │       ├── Pages/          Storefront and account pages
 │       ├── components/     Storefront components (HomeExtras/ = home page sections)
 │       └── Admin/          Admin panel
-└── docs/               Design documents (auth, payment gateways)
+
 ```
 
 ---
@@ -98,8 +98,7 @@ shopzinc/
 
 ### Prerequisites
 - **Node.js 18 or newer**
-- A **MongoDB replica set**. A free MongoDB Atlas cluster is the easiest option. A single local `mongod` will
-  not work, because orders use transactions.
+- A **MongoDB **. A free MongoDB Atlas cluster is the easiest option.
 - A **Cloudinary** account for product images
 - *(Optional)* A Gmail account with an app password for sending emails
 
@@ -194,22 +193,6 @@ cd backend && npm start        # API on http://localhost:3000
 ```bash
 cd frontend && npm run dev     # App on http://localhost:5173
 ```
-
-### 4. Sample data (optional)
-
-```bash
-cd backend
-node src/scripts/seed-dummy.js
-```
-
-This writes to your database. It first deletes any earlier seed data, then adds sample users, categories and
-products. The seed user password is `Seed@1234`. Run it with `--clean` to only delete the seed data.
-
-### 5. Make an admin
-
-New accounts get the `user` role. To make an admin, set `role` to `"admin"` on that user in MongoDB
-(for example with Atlas Data Explorer or Compass).
-
 ---
 
 ## Build for production
@@ -305,7 +288,7 @@ reports. Planned next:
 - Load the admin panel separately so shoppers download less code
 - ESLint, an automated API test suite, and CI
 
-Known issues are tracked with stable IDs in [CLAUDE.md](CLAUDE.md#10-known-bugs-and-issues).
+\\
 
 ---
 
