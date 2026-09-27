@@ -1,0 +1,102 @@
+.recommendation-container {
+  width: 280px;
+  flex: 0 0 auto;
+  background: var(--sz-card);
+  border: 1px solid var(--sz-border);
+  border-radius: var(--sz-radius);
+  padding: 18px 16px 8px;
+}
+
+.recommendation-title {
+  font-size: 15px;
+  font-weight: 700;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--sz-border);
+}
+
+.recommendation-list {
+  list-style: none;
+}
+
+/* Hairline-separated rows instead of hover blobs. */
+.recommendation-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--sz-border);
+  cursor: pointer;
+}
+
+.recommendation-item:last-child {
+  border-bottom: none;
+}
+
+.recommendation-image {
+  flex: 0 0 auto;
+  width: 64px;
+  height: 64px;
+  padding: 6px;
+  border-radius: 6px;
+  background: #F1F2F6;
+}
+
+.recommendation-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}
+
+.recommendation-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.recommendation-name {
+  font-size: 14px;
+  color: var(--sz-text);
+  line-height: 1.35;
+  transition: color .15s;
+  /* Two lines max so long names keep rows even. */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.recommendation-item:hover .recommendation-name {
+  color: var(--sz-primary-strong);
+}
+
+.recommendation-price {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--sz-text);
+  margin-top: 4px;
+}
+
+/* Small screens: horizontal scroller inside its own box, so the page itself never scrolls sideways. */
+@media (max-width: 768px) {
+  .recommendation-container {
+    width: 100%;
+    padding-bottom: 14px;
+  }
+  .recommendation-list {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    padding: 12px 0 4px;
+  }
+  .recommendation-item {
+    flex: 0 0 140px;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0;
+    border-bottom: none;
+  }
+  .recommendation-image {
+    width: 100%;
+    height: 120px;
+  }
+}

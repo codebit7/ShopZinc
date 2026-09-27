@@ -1,0 +1,228 @@
+/* Checkout. ck- prefix so nothing leaks; reuses acc- buttons/inputs from Account/account.css. */
+
+.ck {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-top: 24px;
+  padding-bottom: 56px;
+  color: var(--sz-text);
+}
+.ck-head { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
+
+.ck-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  gap: 24px;
+  align-items: start;
+}
+.ck-steps { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.ck-step { display: flex; flex-direction: column; gap: 16px; }
+
+.ck-step-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+.ck-step-title svg { color: var(--sz-muted); }
+.ck-step-num {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--sz-text);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+}
+.ck-count { margin-left: auto; font-size: 13px; font-weight: 500; color: var(--sz-muted); }
+
+/* Visually hidden but read by screen readers. */
+.ck-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- Address choices ---------- */
+.ck-fieldset { margin: 0; padding: 0; border: 0; min-width: 0; }
+.ck-options {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+}
+.ck-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  height: 100%;
+  padding: 14px 16px;
+  border: 1px solid var(--sz-border);
+  border-radius: var(--sz-radius);
+  background: var(--sz-card);
+  cursor: pointer;
+  min-width: 0;
+}
+.ck-option:hover { border-color: #cfd3dc; }
+.ck-option.is-selected { border-color: var(--sz-text); box-shadow: inset 0 0 0 1px var(--sz-text); }
+.ck-option:focus-within { outline: 2px solid var(--sz-primary); outline-offset: 2px; }
+.ck-option input { margin-top: 3px; flex: 0 0 auto; accent-color: var(--sz-text); }
+.ck-option .acc-address { min-width: 0; }
+.ck-option-text { font-size: 14px; font-weight: 600; }
+.ck-fieldset:disabled .ck-option { cursor: default; opacity: .7; }
+.ck-tag {
+  display: inline-block;
+  margin-left: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--sz-muted);
+}
+
+.ck-new {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--sz-border);
+}
+
+/* ---------- Payment note ---------- */
+.ck-pay-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 14px 16px;
+  border-radius: var(--sz-radius);
+  background: var(--sz-bg);
+  border: 1px dashed var(--sz-border);
+  color: var(--sz-muted);
+  font-size: 14px;
+}
+.ck-pay-note svg { flex: 0 0 auto; margin-top: 2px; }
+.ck-pay-note p { margin: 0; }
+
+/* ---------- Payment methods ---------- */
+/* One column: each card carries a line of help text, which gets cramped side by side. */
+.ck-pay-options {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.ck-pay-option { align-items: center; }
+.ck-pay-icon {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: var(--sz-bg);
+  color: var(--sz-text);
+  font-size: 18px;
+}
+.ck-pay-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.ck-pay-help { font-size: 13px; color: var(--sz-muted); }
+/* Greyed but still readable, so people can see what is coming. */
+.ck-pay-option.is-disabled { cursor: not-allowed; background: var(--sz-bg); }
+.ck-pay-option.is-disabled:hover { border-color: var(--sz-border); }
+.ck-pay-option.is-disabled .ck-pay-icon,
+.ck-pay-option.is-disabled .ck-option-text { color: var(--sz-muted); }
+.ck-pay-option.is-disabled .ck-pay-icon { background: var(--sz-card); }
+
+/* ---------- Summary ---------- */
+.ck-summary {
+  position: sticky;
+  top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.ck-items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 320px;
+  overflow-y: auto;
+}
+.ck-item {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+}
+.ck-thumb {
+  width: 48px;
+  height: 48px;
+  border-radius: 6px;
+  border: 1px solid var(--sz-border);
+  background: var(--sz-bg);
+  overflow: hidden;
+}
+.ck-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ck-item-main { min-width: 0; }
+.ck-item-name {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ck-item-sub { margin: 2px 0 0; font-size: 13px; color: var(--sz-muted); font-variant-numeric: tabular-nums; }
+.ck-item-total { margin: 0; font-size: 14px; font-weight: 600; font-variant-numeric: tabular-nums; }
+
+.ck-totals { margin: 0; padding-top: 12px; border-top: 1px solid var(--sz-border); }
+.ck-totals > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 4px 0;
+  font-size: 14px;
+}
+.ck-totals dt { color: var(--sz-muted); }
+.ck-totals dd { margin: 0; font-variant-numeric: tabular-nums; }
+.ck-save dd { color: var(--sz-success); }
+.ck-grand {
+  margin-top: 8px;
+  padding-top: 12px !important;
+  border-top: 1px solid var(--sz-border);
+  font-size: 16px !important;
+  font-weight: 700;
+}
+.ck-grand dt { color: var(--sz-text); }
+
+.ck-error:empty { display: none; }
+.ck-error .acc-msg { margin: 0; align-items: flex-start; }
+.ck-place { width: 100%; min-height: 44px; font-size: 15px; }
+.ck-fine { margin: 0; text-align: center; }
+
+.ck-empty { margin-top: 24px; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+  .ck-grid { grid-template-columns: minmax(0, 1fr); }
+  .ck-summary { position: static; }
+  .ck-items { max-height: none; }
+}
+@media (max-width: 560px) {
+  .ck { padding-top: 12px; }
+  .ck-options { grid-template-columns: minmax(0, 1fr); }
+}

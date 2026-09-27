@@ -1,0 +1,72 @@
+/* Dark navy band so the gradient CTA stands out (a gradient button on a gradient band would vanish). */
+.discount-banner {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  background: var(--sz-text);
+  color: #fff;
+  padding: 28px 32px;
+  border-radius: var(--sz-radius);
+  margin-top: 32px;
+  overflow: hidden;
+}
+
+/* Thin brand stripe along the top edge. */
+.discount-banner::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--sz-gradient);
+}
+
+.discount-text {
+  min-width: 0;
+}
+
+.discount-text h3 {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -.01em;
+}
+
+.discount-text p {
+  font-size: 15px;
+  margin-top: 4px;
+  color: rgba(255, 255, 255, .7);
+}
+
+.discount-button button {
+  background: var(--sz-gradient);
+  color: var(--sz-on-gradient);
+  border: none;
+  padding: 12px 22px;
+  border-radius: var(--sz-radius);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .15s;
+}
+
+.discount-button button:hover {
+  background: var(--sz-gradient-hover);
+}
+
+.discount-button button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(111, 123, 247, .45);
+}
+
+@media (max-width: 768px) {
+  .discount-banner {
+    padding: 22px 18px;
+  }
+  .discount-text h3 {
+    font-size: 18px;
+  }
+}

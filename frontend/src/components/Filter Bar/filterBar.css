@@ -1,0 +1,112 @@
+/* Compact toolbar: no box, a hairline under it separates it from the results */
+.filter-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 0 0 12px;
+    border-bottom: 1px solid var(--sz-border);
+}
+
+.item-count {
+    font-size: 14px;
+    color: var(--sz-muted);
+    font-variant-numeric: tabular-nums;
+}
+
+.item-count strong {
+    color: var(--sz-text);
+    font-weight: 700;
+}
+
+.filter-options {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px;
+}
+
+.verified-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.verified-checkbox input {
+    width: 15px;
+    height: 15px;
+    accent-color: var(--sz-primary);
+    margin: 0;
+}
+
+.verified-checkbox input:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(111, 123, 247, .25);
+}
+
+.verified-only {
+    font-size: 14px;
+    color: var(--sz-text);
+    cursor: pointer;
+}
+
+.sort-dropdown {
+    height: 34px;
+    padding: 0 10px;
+    font-size: 14px;
+    color: var(--sz-text);
+    border: 1px solid var(--sz-border);
+    border-radius: 6px;
+    background: var(--sz-card);
+    cursor: pointer;
+}
+
+.sort-dropdown:focus {
+    outline: none;
+    border-color: var(--sz-primary);
+    box-shadow: 0 0 0 3px rgba(111, 123, 247, .25);
+}
+
+.view-toggle {
+    display: flex;
+    gap: 2px;
+    padding: 2px;
+    border: 1px solid var(--sz-border);
+    border-radius: 6px;
+    background: var(--sz-card);
+}
+
+.view-btn {
+    display: flex;
+    align-items: center;
+    padding: 7px 9px;
+    background: transparent;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    color: var(--sz-muted);
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.view-btn:hover {
+    color: var(--sz-text);
+}
+
+.view-btn.active {
+    background: var(--sz-gradient);
+    color: var(--sz-on-gradient);
+}
+
+.view-btn:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(111, 123, 247, .25);
+}
+
+@media (max-width: 480px) {
+    .filter-options {
+        width: 100%;
+        justify-content: space-between;
+    }
+}

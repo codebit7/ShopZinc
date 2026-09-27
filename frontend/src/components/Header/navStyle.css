@@ -1,0 +1,805 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* repointed to the brand tokens: other files still read these names */
+    --primary-blue: var(--sz-primary);
+    --primary-hover: var(--sz-primary-hover);
+    --light-blue: var(--sz-accent);
+    --light-grey: #D9D9D9;
+    --border-grey: #DEE2E7;
+    --text-dark: #1C1C1C;
+    --text-grey: #8B96A5;
+    --background-grey: #F5F5F5;
+    --page-bg: #F7FAFC;
+    --white: #FFFFFF;
+}
+
+/* focus ring shared by every control in the bar */
+.sz-nav :focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(111,123,247,.30);
+}
+
+.sz-nav__sr {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+}
+
+/* ---- shell ---- */
+.sz-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--sz-card);
+    border-bottom: 1px solid var(--sz-border);
+    transition: box-shadow .2s;
+}
+
+.sz-nav.is-scrolled {
+    box-shadow: 0 4px 16px rgba(14,20,53,.07);
+}
+
+.sz-nav__row {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    min-height: 68px;
+}
+
+/* Icon tile + wordmark (same look as the admin brand) instead of the placeholder image. */
+.sz-nav__logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    height: 40px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--sz-text);
+}
+
+.sz-nav__logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.sz-nav__logo-mark {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: var(--sz-gradient);
+    color: var(--sz-on-gradient);
+    font-size: 19px;
+    flex-shrink: 0;
+}
+
+.sz-nav__logo-text {
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    white-space: nowrap;
+}
+
+.sz-nav__logo:focus-visible {
+    outline: 2px solid var(--sz-primary);
+    outline-offset: 3px;
+}
+
+.sz-nav__menu-btn {
+    display: none;
+}
+
+/* ---- search ---- */
+.sz-nav__search {
+    display: flex;
+    align-items: stretch;
+    flex: 1;
+    min-width: 0;
+    max-width: 640px;
+    height: 44px;
+    margin: 0 auto;
+    position: relative;   /* anchor for the full-width category popup on mobile */
+    background: var(--sz-bg);
+    border: 1px solid var(--sz-border);
+    border-radius: var(--sz-radius);
+    transition: border-color .2s, box-shadow .2s, background-color .2s;
+}
+
+.sz-nav__search:hover {
+    border-color: #C9CCD6;
+}
+
+.sz-nav__search:focus-within {
+    background: var(--sz-card);
+    border-color: var(--sz-primary);
+    box-shadow: 0 0 0 3px rgba(111,123,247,.20);
+}
+
+/* the form already shows focus; no second ring on the inner controls */
+.sz-nav__search input:focus-visible,
+.sz-nav__search select:focus-visible,
+.sz-nav__search .sz-nav__cat-btn:focus-visible {
+    box-shadow: none;
+}
+
+.sz-nav__cat {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    border-right: 1px solid var(--sz-border);
+}
+
+/* native <select> replaced by the custom listbox below
+.sz-nav__cat select {
+    appearance: none;
+    -webkit-appearance: none;
+    height: 100%;
+    max-width: 160px;
+    padding: 0 30px 0 14px;
+    border: none;
+    outline: none;
+    background: transparent;
+    font: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--sz-text);
+    text-overflow: ellipsis;
+    cursor: pointer;
+}
+
+.sz-nav__cat-arrow {
+    position: absolute;
+    right: 10px;
+    font-size: 14px;
+    color: var(--sz-muted);
+    pointer-events: none;
+}
+*/
+
+/* ---- category picker (custom listbox) ---- */
+.sz-nav__cat-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    height: 100%;
+    max-width: 170px;
+    padding: 0 10px 0 14px;
+    border-radius: var(--sz-radius) 0 0 var(--sz-radius);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--sz-text);
+    cursor: pointer;
+    user-select: none;
+    transition: background-color .15s, color .15s;
+}
+
+.sz-nav__cat-btn:hover,
+.sz-nav__cat-btn:focus-visible,
+.sz-nav__cat-btn[aria-expanded="true"] {
+    background: var(--sz-primary-soft);
+    color: var(--sz-primary-strong);
+}
+
+/* long names truncate instead of pushing the search box */
+.sz-nav__cat-value {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.sz-nav__cat-short {
+    display: none;
+}
+
+.sz-nav__cat-arrow {
+    flex-shrink: 0;
+    font-size: 14px;
+    color: var(--sz-muted);
+    transition: transform .2s;
+}
+
+.sz-nav__cat-arrow.is-open {
+    transform: rotate(180deg);
+    color: var(--sz-primary);
+}
+
+.sz-nav__cat-list {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    z-index: 200;
+    width: 260px;
+    max-width: calc(100vw - 24px);
+    max-height: 320px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    margin: 0;
+    padding: 6px;
+    list-style: none;
+    background: var(--sz-card);
+    border: 1px solid var(--sz-border);
+    border-radius: 12px;
+    box-shadow: 0 12px 32px rgba(14,20,53,.14);
+    animation: sz-nav-pop .14s ease-out;
+}
+
+.sz-nav__cat-list:focus {
+    outline: none;
+}
+
+.sz-nav__cat-opt {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 9px 10px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--sz-text);
+    cursor: pointer;
+    transition: background-color .1s, color .1s;
+}
+
+.sz-nav__cat-opt-text {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* is-active = hover or keyboard position (aria-activedescendant) */
+.sz-nav__cat-opt.is-active {
+    background: var(--sz-bg);
+}
+
+.sz-nav__cat-opt.is-selected {
+    background: var(--sz-primary-soft);
+    color: var(--sz-primary-strong);
+    font-weight: 600;
+}
+
+.sz-nav__cat-opt.is-selected.is-active {
+    box-shadow: inset 0 0 0 1px rgba(111,123,247,.35);
+}
+
+.sz-nav__cat-opt:active {
+    background: var(--sz-primary-soft);
+}
+
+.sz-nav__cat-check {
+    flex-shrink: 0;
+    font-size: 16px;
+    color: var(--sz-primary);
+}
+
+.sz-nav__search input {
+    flex: 1;
+    min-width: 0;
+    padding: 0 12px 0 14px;
+    border: none;
+    outline: none;
+    background: transparent;
+    font: inherit;
+    font-size: 14px;
+    color: var(--sz-text);
+}
+
+.sz-nav__search input::placeholder {
+    color: var(--sz-muted);
+}
+
+.sz-nav__clear {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    margin-right: 6px;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--sz-muted);
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color .15s, color .15s;
+}
+
+.sz-nav__clear:hover {
+    background: var(--sz-border);
+    color: var(--sz-text);
+}
+
+.sz-nav__search-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+    margin: -1px -1px -1px 0;   /* sit over the form border so the fill reaches the edge */
+    padding: 0 20px;
+    border: none;
+    border-radius: 0 var(--sz-radius) var(--sz-radius) 0;
+    background: var(--sz-gradient);
+    color: var(--sz-on-gradient);
+    font: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    cursor: pointer;
+}
+
+.sz-nav__search-btn svg {
+    font-size: 17px;
+}
+
+.sz-nav__search-btn:hover {
+    background: var(--sz-gradient-hover);
+}
+
+.sz-nav__search-btn:focus-visible {
+    box-shadow: inset 0 0 0 2px var(--sz-on-gradient);
+}
+
+/* ---- right side ---- */
+.sz-nav__actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.sz-nav__icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    color: var(--sz-text);
+    font-size: 21px;
+    text-decoration: none;
+    transition: background-color .15s, color .15s;
+}
+
+.sz-nav__icon:hover {
+    background: var(--sz-primary-soft);
+    color: var(--sz-primary-strong);
+}
+
+.sz-nav__badge {
+    position: absolute;
+    top: 3px;
+    right: 1px;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    border-radius: 9px;
+    border: 2px solid var(--sz-card);
+    background: var(--sz-primary);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 14px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+/* ---- account menu ---- */
+.sz-nav__account {
+    position: relative;
+    margin-left: 6px;
+}
+
+.sz-nav__account-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 42px;
+    padding: 0 10px 0 4px;
+    border: 1px solid var(--sz-border);
+    border-radius: 999px;
+    background: var(--sz-card);
+    font: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--sz-text);
+    cursor: pointer;
+    transition: border-color .15s, background-color .15s;
+}
+
+.sz-nav__account-btn:hover,
+.sz-nav__account-btn[aria-expanded="true"] {
+    border-color: var(--sz-primary);
+    background: var(--sz-primary-soft);
+}
+
+.sz-nav__avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--sz-gradient);
+    color: var(--sz-on-gradient);
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.sz-nav__avatar--lg {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+}
+
+.sz-nav__account-name {
+    max-width: 96px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.sz-nav__chev {
+    font-size: 16px;
+    color: var(--sz-muted);
+    transition: transform .2s;
+}
+
+.sz-nav__chev.is-open {
+    transform: rotate(180deg);
+}
+
+.sz-nav__menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    width: 250px;
+    max-width: calc(100vw - 24px);
+    padding: 6px;
+    background: var(--sz-card);
+    border: 1px solid var(--sz-border);
+    border-radius: 12px;
+    box-shadow: 0 12px 32px rgba(14,20,53,.14);
+    z-index: 200;
+    animation: sz-nav-pop .14s ease-out;
+}
+
+@keyframes sz-nav-pop {
+    from { opacity: 0; transform: translateY(-4px); }
+}
+
+.sz-nav__menu-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 10px 12px;
+    margin-bottom: 4px;
+    border-bottom: 1px solid var(--sz-border);
+}
+
+.sz-nav__menu-who {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.sz-nav__menu-who strong {
+    font-size: 14px;
+    color: var(--sz-text);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.sz-nav__menu-who span {
+    font-size: 12px;
+    color: var(--sz-muted);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.sz-nav__menu ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.sz-nav__menu a,
+.sz-nav__logout {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 9px 10px;
+    border: none;
+    border-radius: 6px;
+    background: none;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--sz-text);
+    text-align: left;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color .15s, color .15s;
+}
+
+.sz-nav__menu a svg,
+.sz-nav__logout svg {
+    font-size: 16px;
+    color: var(--sz-muted);
+}
+
+.sz-nav__menu a:hover {
+    background: var(--sz-primary-soft);
+    color: var(--sz-primary-strong);
+}
+
+.sz-nav__menu a:hover svg {
+    color: var(--sz-primary);
+}
+
+.sz-nav__menu-sep {
+    height: 1px;
+    margin: 4px 0;
+    background: var(--sz-border);
+}
+
+.sz-nav__logout:hover {
+    background: #FDECEC;
+    color: var(--sz-danger);
+}
+
+.sz-nav__logout:hover svg {
+    color: var(--sz-danger);
+}
+
+/* ---- guest buttons ---- */
+.sz-nav__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    padding: 0 18px;
+    border-radius: var(--sz-radius);
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background-color .2s, color .2s, border-color .2s;
+}
+
+.sz-nav__btn--outline {
+    color: var(--sz-primary-strong);
+    border: 1px solid var(--sz-border);
+    background: var(--sz-card);
+}
+
+.sz-nav__btn--outline:hover {
+    border-color: var(--sz-primary);
+    background: var(--sz-primary-soft);
+}
+
+.sz-nav__btn--primary {
+    color: var(--sz-on-gradient);
+    background: var(--sz-gradient);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+}
+
+.sz-nav__btn--primary:hover {
+    background: var(--sz-gradient-hover);
+}
+
+/* ---- row 2: categories ---- */
+.sz-nav__cats {
+    border-top: 1px solid var(--sz-border);
+}
+
+.sz-nav__cats ul {
+    /* bootstrap gives every ul a left padding and bottom margin */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    list-style: none;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.sz-nav__cats ul::-webkit-scrollbar {
+    display: none;
+}
+
+.sz-nav__cats a {
+    position: relative;
+    display: block;
+    padding: 10px 12px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--sz-muted);
+    text-decoration: none;
+    white-space: nowrap;
+    border-radius: 6px;
+    transition: color .15s;
+}
+
+.sz-nav__cats li:first-child a {
+    padding-left: 0;
+    font-weight: 700;
+    color: var(--sz-text);
+}
+
+.sz-nav__cats a:hover {
+    color: var(--sz-primary-strong);
+}
+
+/* underline sits on the bar's bottom edge */
+.sz-nav__cats a.is-active {
+    color: var(--sz-primary-strong);
+    font-weight: 700;
+}
+
+.sz-nav__cats a.is-active::after {
+    content: "";
+    position: absolute;
+    left: 12px;
+    right: 12px;
+    bottom: 0;
+    height: 2px;
+    border-radius: 2px 2px 0 0;
+    background: var(--sz-primary);
+}
+
+.sz-nav__cats li:first-child a.is-active::after {
+    left: 0;
+}
+
+/* ---- tablet ---- */
+@media (max-width: 1024px) {
+    .sz-nav__row {
+        gap: 16px;
+    }
+
+    .sz-nav__search-btn span,
+    .sz-nav__account-name {
+        display: none;
+    }
+
+    .sz-nav__search-btn {
+        padding: 0 16px;
+    }
+}
+
+/* ---- mobile: menu + logo + cart on row 1, full-width search below, no row 2 ---- */
+@media (max-width: 767px) {
+    .sz-nav__row {
+        flex-wrap: wrap;
+        gap: 10px 8px;
+        min-height: 0;
+        padding: 10px 0;
+    }
+
+    .sz-nav__menu-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        margin-left: -8px;
+        border: none;
+        border-radius: var(--sz-radius);
+        background: none;
+        color: var(--sz-text);
+        font-size: 22px;
+        cursor: pointer;
+    }
+
+    .sz-nav__menu-btn:hover {
+        background: var(--sz-primary-soft);
+        color: var(--sz-primary-strong);
+    }
+
+    /* Was a fixed 104px box for the old image; the wordmark needs its natural width. */
+    .sz-nav__logo {
+        height: 34px;
+        gap: 8px;
+        margin-right: auto;
+    }
+
+    .sz-nav__logo-mark {
+        width: 32px;
+        height: 32px;
+        font-size: 17px;
+    }
+
+    .sz-nav__logo-text {
+        font-size: 18px;
+    }
+
+    .sz-nav__search {
+        order: 3;
+        flex-basis: 100%;
+        max-width: none;
+        height: 42px;
+    }
+
+    /* .sz-nav__cat select {
+        max-width: 96px;
+        padding-left: 10px;
+    } */
+
+    .sz-nav__cat-btn {
+        max-width: 112px;
+        gap: 4px;
+        padding: 0 8px 0 10px;
+    }
+
+    .sz-nav__cat-long {
+        display: none;
+    }
+
+    .sz-nav__cat-short {
+        display: inline;
+    }
+
+    /* popup spans the whole search group: static here so the form is its anchor */
+    .sz-nav__cat {
+        position: static;
+    }
+
+    .sz-nav__cat-list {
+        left: -1px;
+        right: -1px;
+        width: auto;
+        max-width: none;
+        max-height: min(320px, 60vh);
+    }
+
+    /* wishlist stays reachable from the account menu and the side menu */
+    .sz-nav__icon--wish {
+        display: none;
+    }
+
+    .sz-nav__account {
+        margin-left: 0;
+    }
+
+    .sz-nav__account-btn {
+        padding: 0 4px;
+        border-color: transparent;
+    }
+
+    .sz-nav__chev {
+        display: none;
+    }
+
+    .sz-nav__btn {
+        height: 36px;
+        padding: 0 12px;
+        font-size: 13px;
+    }
+
+    .sz-nav__cats {
+        display: none;
+    }
+}

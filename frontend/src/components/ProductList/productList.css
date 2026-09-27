@@ -1,0 +1,190 @@
+/* One white panel with hairline rows (Best Buy style) instead of a stack of shadowed boxes */
+.product-list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background: var(--sz-card);
+  border: 1px solid var(--sz-border);
+  border-radius: var(--sz-radius);
+}
+
+.list-product-card {
+  display: flex;
+  gap: 24px;
+  padding: 20px;
+  cursor: pointer;
+}
+
+.list-product-card + .list-product-card {
+  border-top: 1px solid var(--sz-border);
+}
+
+.list-product-image {
+  flex-shrink: 0;
+  width: 168px;
+  height: 168px;
+  padding: 12px;
+  object-fit: contain;
+  border-radius: 6px;
+  background: var(--sz-bg);
+  transition: transform 0.35s ease;
+}
+
+.list-product-card:hover .list-product-image {
+  transform: scale(1.03);
+}
+
+.list-product-details {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.headerbox {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.list-product-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--sz-text);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-underline-offset: 3px;
+}
+
+.list-product-card:hover .list-product-title {
+  text-decoration: underline;
+}
+
+/* scoped: productGrid.css also styles .wishlist-icon */
+.list-product-card .wishlist-icon {
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  padding: 9px;
+  border: 1px solid var(--sz-border);
+  border-radius: 50%;
+  background: var(--sz-card);
+  color: var(--sz-text);
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.list-product-card .wishlist-icon:hover,
+.list-product-card .wishlist-icon.filled {
+  color: var(--sz-danger);
+  border-color: var(--sz-danger);
+}
+
+.list-product-pricing {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.list-price {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--sz-text);
+  font-variant-numeric: tabular-nums;
+}
+
+.list-original-price {
+  font-size: 14px;
+  color: var(--sz-muted);
+  text-decoration: line-through;
+}
+
+.list-product-rating {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  color: var(--sz-muted);
+}
+
+.list-rating-score {
+  font-weight: 600;
+  color: #FF9017;
+}
+
+.list-free-shipping {
+  color: var(--sz-success);
+  font-weight: 600;
+}
+
+.list-product-description {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--sz-muted);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.view-details {
+  align-self: flex-start;
+  margin-top: 2px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--sz-primary-strong);
+  text-decoration: none;
+  text-underline-offset: 3px;
+}
+
+.view-details:hover {
+  text-decoration: underline;
+}
+
+.view-details:focus-visible {
+  outline: none;
+  border-radius: 4px;
+  box-shadow: 0 0 0 3px rgba(111, 123, 247, .25);
+}
+
+@media (max-width: 768px) {
+  .list-product-image {
+    width: 120px;
+    height: 120px;
+  }
+}
+
+@media (max-width: 480px) {
+  .list-product-card {
+    gap: 12px;
+    padding: 14px;
+  }
+  .list-product-image {
+    width: 90px;
+    height: 90px;
+    padding: 6px;
+  }
+  .list-product-title { font-size: 14px; }
+  .list-price { font-size: 17px; }
+  .list-product-description { display: none; }
+}
+
+/* Row actions: shared add-to-cart button (productCard.css) + the existing "View details" link. */
+.list-product-actions { display: flex; align-items: center; gap: 16px; margin-top: 6px; flex-wrap: wrap; }
+.list-product-actions .pc-cart { margin-top: 0; padding: 0 18px; }
+.list-product-actions .view-details { margin-top: 0; align-self: center; }
+
+/* Real star rating, replaces the fixed ⭐⭐⭐⭐⭐ (BUG-66). Same orange as the score. */
+.list-stars {
+  color: #FF9017;
+  letter-spacing: 1px;
+}

@@ -1,0 +1,121 @@
+/* Admin → Carousel. Shared adm-* styles + --sz-* tokens, so light and dark both work. */
+.cm { display: flex; flex-direction: column; gap: 16px; }
+.admin-layout .cm > .adm-card + .adm-card { margin-top: 0; }
+.cm-head-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.cm-head-actions a { text-decoration: none; }
+
+.cm-notice {
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px 14px; border-radius: 10px;
+  background: #E7F6EE; color: #0B7A45; font-size: 14px; font-weight: 600;
+}
+.admin-layout.theme-dark .cm-notice { background: rgba(11, 122, 69, 0.2); color: #6FD3A0; }
+
+/* ---------- auto-slides switch ---------- */
+.admin-layout .cm-setting { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 16px 18px; }
+.cm-setting strong { display: block; color: var(--sz-text); font-size: 15px; }
+.cm-setting p { margin: 4px 0 0; color: var(--sz-muted); font-size: 13px; max-width: 70ch; }
+.cm-switch {
+  position: relative; flex-shrink: 0;
+  width: 48px; height: 28px; padding: 0;
+  border: 0; border-radius: 999px; background: var(--sz-border); cursor: pointer;
+  transition: background 0.15s ease;
+}
+.cm-switch.on { background: var(--sz-primary); }
+.cm-switch-knob {
+  position: absolute; top: 3px; left: 3px; width: 22px; height: 22px; border-radius: 50%;
+  background: #fff; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25); transition: transform 0.15s ease;
+}
+.cm-switch.on .cm-switch-knob { transform: translateX(20px); }
+.cm-switch:focus-visible { outline: 2px solid var(--sz-primary); outline-offset: 2px; }
+.cm-switch:disabled { opacity: 0.6; cursor: default; }
+
+/* ---------- slide list ---------- */
+.cm-list { list-style: none; margin: 0; padding: 0; }
+.cm-item {
+  display: grid; grid-template-columns: 28px 160px minmax(0, 1fr) auto; align-items: center; gap: 14px;
+  padding: 14px 16px; border-bottom: 1px solid var(--sz-border);
+}
+.cm-item:last-child { border-bottom: 0; }
+.cm-item.is-hidden .cm-thumb { opacity: 0.45; filter: grayscale(0.6); }
+.cm-pos {
+  width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--sz-bg); color: var(--sz-muted); font-size: 12px; font-weight: 700;
+}
+.cm-thumb { width: 160px; aspect-ratio: 16 / 7; object-fit: cover; border-radius: 8px; background: var(--sz-bg); border: 1px solid var(--sz-border); }
+.cm-info { display: flex; flex-direction: column; align-items: flex-start; gap: 3px; min-width: 0; }
+.cm-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--sz-primary-strong); }
+.cm-title { font-size: 15px; color: var(--sz-text); max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cm-link { font-size: 13px; color: var(--sz-muted); max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cm-info .adm-badge { margin-top: 3px; }
+.cm-actions { display: flex; gap: 4px; flex-wrap: wrap; justify-content: flex-end; }
+.cm-empty { gap: 10px; }
+.cm-empty svg { font-size: 32px; color: var(--sz-muted); }
+.cm-empty p { margin: 0; }
+
+/* ---------- editor dialog ---------- */
+.cm-backdrop {
+  position: fixed; inset: 0; z-index: 1000;
+  display: grid; place-items: center; padding: 16px;
+  background: rgba(10, 14, 28, 0.55);
+}
+.cm-dialog {
+  width: min(1040px, 100%); max-height: calc(100vh - 32px);
+  display: flex; flex-direction: column;
+  background: var(--sz-card); color: var(--sz-text);
+  border: 1px solid var(--sz-border); border-radius: 14px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+}
+.cm-dialog-head, .cm-dialog-foot { display: flex; align-items: center; gap: 8px; padding: 14px 18px; }
+.cm-dialog-head { justify-content: space-between; border-bottom: 1px solid var(--sz-border); }
+.cm-dialog-head h3 { margin: 0; font-size: 18px; font-weight: 700; }
+.cm-dialog-foot { justify-content: flex-end; border-top: 1px solid var(--sz-border); }
+.cm-dialog-body {
+  display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 20px;
+  padding: 18px; overflow-y: auto;
+}
+.cm-error { margin: 0 18px; }
+
+.cm-preview-wrap { display: flex; flex-direction: column; gap: 6px; position: sticky; top: 0; align-self: start; }
+/* The store hero, scaled down: same classes, smaller box. */
+.cm-preview.hc { height: 260px; border-radius: 14px; overflow: hidden; }
+.cm-preview-slide { flex: none; width: 100%; height: 100%; }
+.cm-preview .hc-copy { padding: 20px 24px 24px 28px; gap: 8px; max-width: 80%; }
+.cm-preview .hc-title { font-size: 24px; }
+.cm-preview .hc-desc { font-size: 13px; }
+.cm-preview .hc-cta { padding: 8px 14px; font-size: 13px; pointer-events: none; }
+
+.cm-fields { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.cm-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.cm-req { font-style: normal; font-weight: 500; font-size: 11px; color: var(--sz-danger); margin-left: 4px; }
+.cm-opt { font-weight: 400; font-size: 12px; color: var(--sz-muted); margin-left: 4px; }
+.cm-hint { font-size: 12px; color: var(--sz-muted); }
+.cm-file {
+  display: flex; align-items: center; gap: 8px; margin: 0;
+  padding: 10px 12px; border: 1px dashed var(--sz-border); border-radius: 10px;
+  color: var(--sz-text); font-size: 14px; font-weight: 600; cursor: pointer;
+}
+.cm-file:hover { border-color: var(--sz-primary); }
+.cm-file:focus-within { outline: 2px solid var(--sz-primary); outline-offset: 2px; }
+.cm-file span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cm-visually-hidden { position: absolute; width: 1px; height: 1px; opacity: 0; overflow: hidden; }
+.cm-check { display: flex; align-items: center; gap: 8px; margin: 0; font-size: 14px; cursor: pointer; }
+.cm-check input { width: 18px; height: 18px; accent-color: var(--sz-primary); }
+
+@media (max-width: 900px) {
+  .cm-dialog-body { grid-template-columns: minmax(0, 1fr); }
+  .cm-preview-wrap { position: static; }
+  .cm-item { grid-template-columns: 28px 110px minmax(0, 1fr); }
+  .cm-thumb { width: 110px; }
+  .cm-actions { grid-column: 2 / -1; justify-content: flex-start; }
+}
+@media (max-width: 560px) {
+  .cm-row { grid-template-columns: minmax(0, 1fr); }
+  .cm-preview.hc { height: 220px; }
+  .admin-layout .cm-setting { align-items: flex-start; }
+  .cm-item { grid-template-columns: 90px minmax(0, 1fr); }
+  .cm-pos { display: none; }
+  .cm-thumb { width: 90px; }
+  .cm-actions { grid-column: 1 / -1; }
+  .cm-dialog { max-height: calc(100vh - 16px); }
+}

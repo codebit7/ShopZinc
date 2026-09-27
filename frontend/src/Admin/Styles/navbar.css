@@ -1,0 +1,160 @@
+/* Scoped under .admin-layout - the old bare .badge / .icon rules restyled bootstrap badges storefront-wide.
+   Sticky inside .adm-main (the scrolling column), so it stays put while the page scrolls. */
+.admin-layout .adm-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 60px;
+  /* Flex child of the scrolling .adm-main column: without this, tall pages shrank the navbar below 60px. */
+  flex-shrink: 0;
+  padding: 0 24px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: saturate(180%) blur(8px);
+  border-bottom: 1px solid var(--sz-border);
+}
+
+.admin-layout .adm-page-title {
+  flex: 1;
+  min-width: 0; /* long titles ellipsize instead of pushing the icons off-screen */
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--sz-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.admin-layout .adm-navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+/* Header search (visual only). Own class so it doesn't clash with the shared .adm-search. */
+.admin-layout .adm-topsearch {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 8px 0 0;
+  padding: 0 10px;
+  height: 36px;
+  width: 260px;
+  background: var(--sz-bg);
+  border: 1px solid var(--sz-border);
+  border-radius: 8px;
+  color: var(--sz-muted);
+  font-size: 13px;
+}
+.admin-layout .adm-topsearch:focus-within {
+  background: var(--sz-card);
+  border-color: var(--sz-primary);
+  box-shadow: 0 0 0 3px rgba(111, 123, 247, 0.25);
+}
+.admin-layout .adm-topsearch input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  font-size: 13px;
+  color: var(--sz-text);
+}
+
+.admin-layout .adm-icon-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  background: none;
+  border: 0;
+  border-radius: 8px;
+  color: var(--sz-muted);
+  font-size: 17px;
+}
+.admin-layout .adm-icon-btn:hover { background: var(--sz-bg); color: var(--sz-text); }
+.admin-layout .adm-icon-btn:focus-visible {
+  outline: 0;
+  box-shadow: 0 0 0 3px rgba(111, 123, 247, 0.25);
+  color: var(--sz-primary-strong);
+}
+
+/* Menu button only exists for the phone drawer. */
+.admin-layout .adm-menu-btn { display: none; margin-left: -8px; color: var(--sz-text); }
+
+.admin-layout .adm-dot {
+  position: absolute;
+  top: 8px;
+  right: 9px;
+  width: 8px;
+  height: 8px;
+  border: 2px solid var(--sz-card);
+  border-radius: 50%;
+  background: var(--sz-danger);
+  box-sizing: content-box;
+}
+
+.admin-layout .adm-user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: 8px;
+  padding-left: 14px;
+  border-left: 1px solid var(--sz-border);
+}
+
+.admin-layout .adm-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--sz-gradient);
+  color: var(--sz-on-gradient);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.admin-layout .adm-user-name {
+  max-width: 140px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+@media (max-width: 1199.98px) {
+  .admin-layout .adm-topsearch { width: 200px; }
+}
+
+@media (max-width: 1023.98px) {
+  .admin-layout .adm-topsearch { display: none; }
+}
+
+@media (max-width: 767.98px) {
+  .admin-layout .adm-navbar { height: 56px; padding: 0 16px; gap: 8px; }
+  .admin-layout .adm-menu-btn { display: inline-flex; }
+  .admin-layout .adm-hide-sm,
+  .admin-layout .adm-user-name { display: none; }
+  .admin-layout .adm-user { margin-left: 4px; padding-left: 10px; }
+}
+
+/* The name/avatar is a button now (opens My profile); strip native button look, keep .adm-user layout. */
+.admin-layout .adm-user-btn {
+  background: none; border-top: 0; border-right: 0; border-bottom: 0;
+  font: inherit; color: inherit; cursor: pointer; border-radius: 0;
+}
+.admin-layout .adm-user-btn:hover .adm-user-name { color: var(--sz-primary); }
+.admin-layout .adm-user-btn:focus-visible { outline: 2px solid var(--sz-primary); outline-offset: 2px; }

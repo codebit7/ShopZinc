@@ -1,0 +1,735 @@
+/* Every rule is scoped under .auth-page: this file stays loaded after leaving /auth,
+   and generic class names would otherwise restyle other pages. */
+
+.auth-page {
+  --auth-danger-text: #B42318;  /* --sz-danger is too light for small text on the pink tint */
+  --auth-danger-bg: #FEF2F2;
+  --auth-success-text: #0B6B3C; /* same reason for --sz-success on the green tint */
+  --auth-success-bg: #EFFAF4;
+  --auth-ring: 0 0 0 3px rgba(111, 123, 247, 0.28);
+
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  background: var(--sz-bg);
+  color: var(--sz-text);
+  font-family: var(--sz-font);
+}
+
+.auth-page *,
+.auth-page *::before,
+.auth-page *::after {
+  box-sizing: border-box;
+}
+
+.auth-page .auth-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---- logo (mirrors .sz-nav__logo in the navbar) ---- */
+.auth-page .auth-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--sz-text);
+  text-decoration: none;
+  border-radius: 8px;
+}
+
+.auth-page .auth-logo__mark {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: var(--sz-gradient);
+  color: var(--sz-on-gradient);
+  font-size: 19px;
+  flex-shrink: 0;
+}
+
+.auth-page .auth-logo__text {
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  white-space: nowrap;
+}
+
+.auth-page .auth-logo--light {
+  color: #fff;
+}
+
+/* ---- brand half (desktop only) ---- */
+.auth-page .auth-brand {
+  display: none;
+}
+
+/* ---- form half ---- */
+.auth-page .auth-main {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 16px;
+  min-width: 0;
+}
+
+.auth-page .auth-panel {
+  width: 100%;
+  max-width: 440px;
+  padding: 20px 20px 24px;
+  background: var(--sz-card);
+  border: 1px solid var(--sz-border);
+  border-radius: 12px;
+  box-shadow: var(--sz-shadow);
+}
+
+.auth-page .auth-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.auth-page .auth-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 32px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--sz-muted);
+  text-decoration: none;
+  border-radius: 6px;
+  transition: color 0.15s;
+}
+
+.auth-page .auth-back:hover {
+  color: var(--sz-primary-strong);
+}
+
+.auth-page .auth-title {
+  margin: 0 0 6px;
+  font-size: 26px;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+}
+
+.auth-page .auth-subtitle {
+  margin: 0 0 20px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--sz-muted);
+}
+
+/* Segmented control; the active segment carries the gradient like the navbar CTA. */
+.auth-page .auth-tabs {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  margin-bottom: 8px;
+  background: var(--sz-bg);
+  border: 1px solid var(--sz-border);
+  border-radius: 10px;
+}
+
+.auth-page .auth-tab {
+  flex: 1;
+  padding: 9px 12px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--sz-muted);
+  text-decoration: none;
+  border-radius: 7px;
+  transition: background 0.15s, color 0.15s;
+}
+
+.auth-page .auth-tab:hover {
+  color: var(--sz-text);
+}
+
+.auth-page .auth-tab.active {
+  background: var(--sz-gradient);
+  color: var(--sz-on-gradient);
+  box-shadow: var(--sz-shadow);
+}
+
+/* ---- form ---- */
+.auth-page .auth-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.auth-page .auth-field {
+  display: flex;
+  flex-direction: column;
+  margin-top: 16px;
+}
+
+.auth-page .auth-field > label {
+  margin-bottom: 6px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.auth-page .auth-input {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.auth-page .auth-input__icon {
+  position: absolute;
+  left: 14px;
+  font-size: 18px;
+  color: var(--sz-muted);
+  pointer-events: none;
+}
+
+.auth-page .auth-input input {
+  width: 100%;
+  height: 48px;
+  padding: 0 14px 0 42px;
+  font-family: inherit;
+  font-size: 15px;
+  color: var(--sz-text);
+  background: var(--sz-card);
+  border: 1px solid var(--sz-border);
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.auth-page .auth-input input::placeholder {
+  color: #9CA3AF;
+}
+
+.auth-page .auth-input input:hover {
+  border-color: #CBD0DC;
+}
+
+.auth-page .auth-input input:focus {
+  border-color: var(--sz-primary);
+  box-shadow: var(--auth-ring);
+}
+
+/* Browser autofill paints inputs light blue; keep them white so they match the empty fields. */
+.auth-page .auth-input input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 100px var(--sz-card) inset;
+  -webkit-text-fill-color: var(--sz-text);
+}
+
+.auth-page .auth-input input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 100px var(--sz-card) inset, var(--auth-ring);
+}
+
+.auth-page .auth-input input[aria-invalid="true"] {
+  border-color: var(--sz-danger);
+}
+
+.auth-page .auth-input input[aria-invalid="true"]:focus {
+  box-shadow: 0 0 0 3px rgba(229, 72, 77, 0.22);
+}
+
+.auth-page .auth-input:focus-within .auth-input__icon {
+  color: var(--sz-primary-strong);
+}
+
+/* Room for the show/hide button on password fields. */
+.auth-page .auth-input input:has(+ .auth-input__toggle) {
+  padding-right: 48px;
+}
+
+.auth-page .auth-input__toggle {
+  position: absolute;
+  right: 4px;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  font-size: 18px;
+  color: var(--sz-muted);
+  background: none;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.auth-page .auth-input__toggle:hover {
+  color: var(--sz-primary-strong);
+  background: var(--sz-primary-soft);
+}
+
+.auth-page .auth-field__error {
+  margin: 6px 0 0;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--auth-danger-text);
+}
+
+/* ---- password strength ---- */
+.auth-page .auth-strength {
+  margin-top: 10px;
+}
+
+.auth-page .auth-strength__row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.auth-page .auth-strength__bar {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+}
+
+.auth-page .auth-strength__bar span {
+  height: 4px;
+  border-radius: 2px;
+  background: var(--sz-border);
+  transition: background 0.2s;
+}
+
+.auth-page .auth-strength__bar.is-1 span:nth-child(-n + 1) { background: var(--sz-danger); }
+.auth-page .auth-strength__bar.is-2 span:nth-child(-n + 2) { background: #E0A100; }
+.auth-page .auth-strength__bar.is-3 span { background: var(--sz-success); }
+
+.auth-page .auth-strength__label {
+  min-width: 108px;
+  text-align: right;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--sz-muted);
+}
+
+.auth-page .auth-checklist {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 12px;
+  color: var(--sz-muted);
+}
+
+.auth-page .auth-checklist li {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.auth-page .auth-checklist svg {
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+.auth-page .auth-checklist li.is-met {
+  color: var(--auth-success-text);
+}
+
+/* The checklist is the real password rule now, so after a blocked submit the missing
+   items turn red instead of staying grey like an optional hint. */
+.auth-page .auth-checklist li.is-unmet {
+  color: var(--auth-danger-text);
+  font-weight: 600;
+}
+
+.auth-page .auth-checklist__title {
+  margin: 8px 0 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--sz-muted);
+}
+
+/* Countdown under a submit button locked by a RATE_LIMITED 429. */
+.auth-page .auth-retry {
+  margin: -4px 0 0;
+  font-size: 13px;
+  text-align: center;
+  color: var(--sz-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- alerts ---- */
+.auth-page .auth-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 16px;
+  padding: 12px 14px;
+  font-size: 13px;
+  line-height: 1.5;
+  border: 1px solid;
+  border-radius: 8px;
+}
+
+.auth-page .auth-alert > svg {
+  flex-shrink: 0;
+  margin-top: 1px;
+  font-size: 18px;
+}
+
+.auth-page .auth-alert p {
+  margin: 0;
+}
+
+.auth-page .auth-alert--error {
+  color: var(--auth-danger-text);
+  background: var(--auth-danger-bg);
+  border-color: #FBD0D2;
+}
+
+.auth-page .auth-alert--success {
+  color: var(--auth-success-text);
+  background: var(--auth-success-bg);
+  border-color: #C6ECD6;
+}
+
+.auth-page .auth-alert--info {
+  color: var(--sz-primary-strong);
+  background: var(--sz-primary-soft);
+  border-color: #D9DDFE;
+}
+
+.auth-page .auth-link-btn {
+  margin-top: 6px;
+  padding: 0;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  color: inherit;
+  background: none;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Used as a Link too (ResetPassword); an inline <a> would ignore the margin-top. */
+.auth-page a.auth-link-btn {
+  display: inline-block;
+}
+
+/* "Forgot password?" under the login password field. */
+.auth-page .auth-forgot {
+  align-self: flex-end;
+  margin-top: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--sz-primary-strong);
+  text-decoration: none;
+  border-radius: 4px;
+}
+
+.auth-page .auth-forgot:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.auth-page .auth-link-btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+/* ---- terms ---- */
+.auth-page .auth-terms {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 18px;
+  font-size: 13px;
+  color: var(--sz-muted);
+  cursor: pointer;
+}
+
+.auth-page .auth-terms__link {
+  font-weight: 600;
+  color: var(--sz-primary-strong);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  border-radius: 4px;
+}
+
+.auth-page .auth-terms input {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  flex-shrink: 0;
+  accent-color: var(--sz-primary);
+}
+
+/* ---- buttons ---- */
+.auth-page .auth-submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  height: 48px;
+  margin-top: 22px;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--sz-on-gradient);
+  background: var(--sz-gradient);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.05s;
+}
+
+.auth-page .auth-submit:hover:not(:disabled) {
+  background: var(--sz-gradient-hover);
+}
+
+.auth-page .auth-submit:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.auth-page .auth-submit:disabled {
+  opacity: 0.7;
+  cursor: progress;
+}
+
+.auth-page .auth-submit--secondary {
+  color: var(--sz-text);
+  background: var(--sz-card);
+  border: 1px solid var(--sz-border);
+}
+
+.auth-page .auth-submit--secondary:hover:not(:disabled) {
+  background: var(--sz-bg);
+}
+
+.auth-page .auth-spinner {
+  font-size: 18px;
+  animation: auth-spin 0.8s linear infinite;
+}
+
+@keyframes auth-spin {
+  to { transform: rotate(360deg); }
+}
+
+.auth-page .auth-switch {
+  margin: 22px 0 0;
+  padding-top: 18px;
+  border-top: 1px solid var(--sz-border);
+  text-align: center;
+  font-size: 13px;
+  color: var(--sz-muted);
+}
+
+.auth-page .auth-switch__link {
+  padding: 0;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 700;
+  color: var(--sz-primary-strong);
+  background: none;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.auth-page .auth-switch__link:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ---- "check your email" state ---- */
+.auth-page .auth-done {
+  align-items: center;
+  padding-top: 20px;
+  text-align: center;
+}
+
+.auth-page .auth-done__icon {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  font-size: 26px;
+  color: var(--sz-primary-strong);
+  background: var(--sz-primary-soft);
+}
+
+.auth-page .auth-done__title {
+  margin: 16px 0 8px;
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.auth-page .auth-done__text {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--sz-text);
+  overflow-wrap: anywhere; /* long emails must not push the card wider than a 360px screen */
+}
+
+.auth-page .auth-done__hint {
+  margin: 8px 0 0;
+  font-size: 13px;
+  color: var(--sz-muted);
+}
+
+/* ---- focus rings (keyboard only) ---- */
+.auth-page .auth-logo:focus-visible,
+.auth-page .auth-back:focus-visible,
+.auth-page .auth-tab:focus-visible,
+.auth-page .auth-input__toggle:focus-visible,
+.auth-page .auth-link-btn:focus-visible,
+.auth-page .auth-switch__link:focus-visible,
+.auth-page .auth-forgot:focus-visible,
+.auth-page .auth-terms__link:focus-visible,
+.auth-page .auth-submit:focus-visible,
+.auth-page .auth-terms input:focus-visible {
+  outline: 2px solid var(--sz-primary);
+  outline-offset: 2px;
+}
+
+/* ---- desktop: split layout ---- */
+@media (min-width: 960px) {
+  .auth-page {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  /* Photo under a navy scrim, so white text stays readable whatever the photo shows. */
+  .auth-page .auth-brand {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    z-index: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 40px 48px 48px;
+    color: #fff;
+    background: url(./../../assets/authbg.jpg) no-repeat center / cover;
+    isolation: isolate;
+  }
+
+  .auth-page .auth-brand::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background:
+      radial-gradient(110% 60% at 0% 0%, rgba(155, 248, 244, 0.22), transparent 60%),
+      linear-gradient(180deg, rgba(14, 20, 53, 0.62) 0%, rgba(14, 20, 53, 0.95) 100%);
+  }
+
+  .auth-page .auth-brand__body {
+    max-width: 440px;
+  }
+
+  .auth-page .auth-brand__headline {
+    margin: 0 0 12px;
+    font-size: 40px;
+    font-weight: 800;
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+  }
+
+  .auth-page .auth-brand__lead {
+    margin: 0 0 32px;
+    font-size: 16px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .auth-page .auth-trust {
+    display: grid;
+    gap: 16px;
+    margin: 0;
+    padding: 24px 0 0;
+    list-style: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.18);
+  }
+
+  .auth-page .auth-trust__item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    font-size: 14px;
+  }
+
+  .auth-page .auth-trust__item strong {
+    display: block;
+    font-weight: 700;
+  }
+
+  .auth-page .auth-trust__icon {
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    font-size: 18px;
+    color: #9BF8F4;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+  }
+
+  .auth-page .auth-trust__text {
+    display: block;
+    margin-top: 2px;
+    color: rgba(255, 255, 255, 0.72);
+  }
+
+  /* Form half: no card, just a centred column on the page background. */
+  .auth-page .auth-main {
+    align-items: center;
+    padding: 48px;
+    background: var(--sz-card);
+  }
+
+  .auth-page .auth-panel {
+    max-width: 420px;
+    padding: 0;
+    border: none;
+    box-shadow: none;
+    background: transparent;
+  }
+
+  .auth-page .auth-logo--compact {
+    display: none;
+  }
+
+  .auth-page .auth-topbar {
+    margin-bottom: 40px;
+  }
+
+  .auth-page .auth-title {
+    font-size: 30px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .auth-page *,
+  .auth-page *::before,
+  .auth-page *::after {
+    transition: none !important;
+  }
+
+  /* The button text already says "Logging in…", so a still icon is enough. */
+  .auth-page .auth-spinner {
+    animation: none;
+  }
+}

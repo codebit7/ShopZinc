@@ -1,0 +1,15 @@
+/* Scoped under .admin-layout: this file loads on every page. Table, fields and buttons come
+   from adminlayout.css — only the categories layout lives here. */
+.admin-layout .cat { display: flex; flex-direction: column; gap: 20px; min-width: 0; }
+
+/* Name + description share the row; they wrap under each other on narrow screens. */
+.admin-layout .cat-form { flex-wrap: wrap; }
+.admin-layout .cat-form .adm-input { flex: 1 1 200px; min-width: 0; }
+.admin-layout .cat-form .adm-btn { flex: none; }
+
+.admin-layout .cat-error { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+
+.admin-layout .cat-name { font-weight: 600; white-space: nowrap; }
+/* Long descriptions wrap in their cell instead of widening the table. */
+.admin-layout .cat-desc { white-space: normal; min-width: 200px; max-width: 480px; }
+.admin-layout .cat-table .adm-input { min-width: 140px; }

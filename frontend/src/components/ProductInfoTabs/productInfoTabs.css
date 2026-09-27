@@ -1,0 +1,227 @@
+.product-tabs-container {
+  flex: 1;
+  min-width: 0;
+  background: var(--sz-card);
+  border: 1px solid var(--sz-border);
+  border-radius: var(--sz-radius);
+  overflow: hidden;
+}
+
+/* Scoped to the tabs container: `.tabs` / `.tab-button` are generic names. */
+.product-tabs-container .tabs {
+  display: flex;
+  gap: 8px;
+  padding: 0 20px;
+  border-bottom: 1px solid var(--sz-border);
+  overflow-x: auto;
+  overflow-y: hidden; /* overflow-x:auto forces overflow-y:auto, and the underline sat 1px below, showing a vertical scrollbar */
+}
+
+.product-tabs-container .tab-button {
+  position: relative;
+  flex: 0 0 auto;
+  background: none;
+  border: none;
+  padding: 16px 4px;
+  margin-right: 16px;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--sz-muted);
+  cursor: pointer;
+  transition: color .15s;
+}
+
+/* Gradient indicator: border-color can't take a gradient, so it's a 2px bar pseudo-element. */
+.product-tabs-container .tab-button::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: var(--sz-gradient);
+  opacity: 0;
+  transition: opacity .15s;
+}
+
+.product-tabs-container .tab-button:hover {
+  color: var(--sz-text);
+}
+
+.product-tabs-container .tab-button.active {
+  color: var(--sz-text);
+  font-weight: 600;
+}
+
+.product-tabs-container .tab-button.active::after {
+  opacity: 1;
+}
+
+.product-tabs-container .tab-button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(111, 123, 247, .25);
+  border-radius: 4px;
+}
+
+.product-tabs-container .tab-content {
+  padding: 24px 20px;
+}
+
+.description-text {
+  font-size: 15px;
+  color: #3B4160;
+  line-height: 1.7;
+  max-width: 68ch;
+}
+
+/* Hairline spec rows, no boxed grid. */
+.product-specs {
+  width: 100%;
+  max-width: 560px;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.product-specs td {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--sz-border);
+  color: var(--sz-text);
+}
+
+.product-specs tr:first-child td {
+  border-top: 1px solid var(--sz-border);
+}
+
+.product-specs td:first-child {
+  width: 35%;
+  color: var(--sz-muted);
+}
+
+.feature-list {
+  list-style: none;
+  margin-top: 20px;
+}
+
+.feature-list li {
+  position: relative;
+  padding-left: 22px;
+  margin-bottom: 8px;
+  font-size: 15px;
+  color: #3B4160;
+}
+
+.feature-list li::before {
+  content: "✔";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--sz-primary);
+  font-size: 13px;
+}
+
+.tab-placeholder {
+  text-align: center;
+  color: var(--sz-muted);
+  font-size: 14px;
+  padding: 24px 0;
+}
+
+@media (max-width: 768px) {
+  .product-tabs-container .tabs {
+    padding: 0 14px;
+  }
+  .product-tabs-container .tab-content {
+    padding: 16px 14px;
+  }
+}
+
+/* Reviews tab (real ratings from the product). */
+.reviews-summary { display: flex; align-items: center; gap: 14px; padding-bottom: 16px; border-bottom: 1px solid var(--sz-border); }
+.reviews-summary p { margin: 2px 0 0; font-size: 13px; color: var(--sz-muted); }
+.reviews-score { font-size: 36px; font-weight: 800; letter-spacing: -0.02em; color: var(--sz-text); }
+.reviews-list { list-style: none; margin: 0; padding: 0; }
+.review { display: flex; gap: 12px; padding: 16px 0; border-bottom: 1px solid var(--sz-border); }
+.review:last-child { border-bottom: 0; }
+.review-avatar {
+  flex: 0 0 36px; height: 36px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: var(--sz-primary-soft); color: var(--sz-primary-strong); font-weight: 700;
+}
+.review-body { min-width: 0; }
+.review-head { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+.review-head strong { font-size: 14px; color: var(--sz-text); }
+.review-body p { margin: 4px 0 0; font-size: 14px; line-height: 1.55; color: var(--sz-muted); overflow-wrap: anywhere; }
+
+/* ---------- Reviews: summary, breakdown, write box ---------- */
+.rv-top { display: flex; flex-wrap: wrap; align-items: center; gap: 20px 40px; margin-bottom: 20px; }
+.rv-top .reviews-summary { margin: 0; }
+.rv-bars { list-style: none; margin: 0; padding: 0; flex: 1 1 260px; max-width: 380px; display: flex; flex-direction: column; gap: 6px; }
+.rv-bars li { display: grid; grid-template-columns: 34px minmax(0, 1fr) 28px; align-items: center; gap: 10px; font-size: 13px; color: var(--sz-muted); }
+.rv-bars-label { display: inline-flex; align-items: center; gap: 3px; }
+.rv-bars-label svg { color: #F5A524; font-size: 11px; }
+.rv-bars-track { height: 8px; border-radius: 999px; background: var(--sz-bg); overflow: hidden; }
+.rv-bars-fill { display: block; height: 100%; border-radius: 999px; background: #F5A524; transition: width .3s ease; }
+.rv-bars-count { text-align: right; font-variant-numeric: tabular-nums; }
+
+.rv-box { margin-bottom: 20px; padding: 16px 18px; border: 1px solid var(--sz-border); border-radius: 12px; background: var(--sz-bg); }
+.rv-box p { margin: 0; font-size: 14px; color: var(--sz-muted); }
+.rv-box a { color: var(--sz-primary-strong); font-weight: 600; }
+.rv-box--cta { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+.rv-box--cta strong { display: block; margin-bottom: 2px; color: var(--sz-text); font-size: 15px; }
+.rv-form { display: flex; flex-direction: column; gap: 10px; background: var(--sz-card); }
+.rv-form > strong { color: var(--sz-text); font-size: 15px; }
+
+.rv-picker { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.rv-picker-stars { display: inline-flex; gap: 2px; }
+.rv-star {
+  display: grid; place-items: center; width: 40px; height: 40px; padding: 0;
+  border: 0; border-radius: 8px; background: none; cursor: pointer;
+  color: #C9CDD6; font-size: 26px; transition: transform .1s ease, color .1s ease;
+}
+.rv-star.on { color: #F5A524; }
+.rv-star:hover { transform: scale(1.12); }
+.rv-star:focus-visible { outline: 2px solid var(--sz-primary); outline-offset: 1px; }
+.rv-picker-word { font-size: 14px; font-weight: 600; color: var(--sz-text); min-width: 80px; }
+
+.rv-label { font-size: 14px; font-weight: 600; color: var(--sz-text); }
+.rv-label span { font-weight: 400; color: var(--sz-muted); }
+.rv-textarea {
+  width: 100%; min-height: 96px; padding: 10px 12px; resize: vertical;
+  border: 1px solid var(--sz-border); border-radius: 10px; background: var(--sz-card); color: var(--sz-text);
+  font: inherit; font-size: 14px; line-height: 1.5;
+}
+.rv-textarea:focus { outline: none; border-color: var(--sz-primary); box-shadow: 0 0 0 3px rgba(111, 123, 247, .2); }
+.rv-form-foot { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; }
+.rv-count { font-size: 12px; color: var(--sz-muted); font-variant-numeric: tabular-nums; }
+.rv-error { font-size: 13px; color: var(--sz-danger); }
+.rv-form-actions { display: flex; gap: 8px; margin-left: auto; }
+
+.rv-btn {
+  display: inline-flex; align-items: center; gap: 6px; height: 38px; padding: 0 16px;
+  border: 1px solid transparent; border-radius: 10px;
+  font: inherit; font-size: 14px; font-weight: 600; cursor: pointer;
+}
+.rv-btn.primary { background: var(--sz-gradient); color: var(--sz-on-gradient, #fff); }
+.rv-btn.primary:hover { background: var(--sz-gradient-hover, var(--sz-gradient)); }
+.rv-btn.ghost { background: none; color: var(--sz-muted); border-color: var(--sz-border); }
+.rv-btn.ghost:hover { color: var(--sz-text); }
+.rv-btn:disabled { opacity: .6; cursor: default; }
+.rv-btn:focus-visible { outline: 2px solid var(--sz-primary); outline-offset: 2px; }
+
+.review.is-mine { background: var(--sz-primary-soft, #EEF0FF); border-radius: 12px; padding-left: 12px; padding-right: 12px; }
+.rv-you { font-weight: 500; color: var(--sz-muted); }
+.rv-verified { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; font-weight: 600; color: #0B7A45; }
+.rv-date { font-size: 12px; color: var(--sz-muted); }
+.rv-delete {
+  display: inline-flex; align-items: center; gap: 4px; margin-top: 6px; padding: 0;
+  border: 0; background: none; color: var(--sz-muted); font: inherit; font-size: 13px; cursor: pointer;
+}
+.rv-delete:hover { color: var(--sz-danger); }
+.rv-delete:focus-visible { outline: 2px solid var(--sz-primary); outline-offset: 2px; border-radius: 4px; }
+
+@media (max-width: 575.98px) {
+  .rv-box--cta .rv-btn { width: 100%; justify-content: center; }
+  .rv-form-actions { width: 100%; }
+  .rv-form-actions .rv-btn { flex: 1; justify-content: center; }
+}

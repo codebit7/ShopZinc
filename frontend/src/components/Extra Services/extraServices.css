@@ -1,0 +1,97 @@
+.extra-services h2 {
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--sz-text);
+  margin-bottom: 16px;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.service-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--sz-card);
+  border: 1px solid var(--sz-border);
+  border-radius: var(--sz-radius);
+  overflow: hidden;
+  cursor: pointer;
+}
+
+/* Photo zooms inside its frame on hover; the card itself stays put */
+.service-card:hover .service-image {
+  transform: scale(1.06);
+}
+
+.service-card:hover h3 {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 120px;
+  overflow: hidden;
+}
+
+.image-wrapper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(14, 20, 53, 0.35);
+  z-index: 1;
+}
+
+.service-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.35s ease;
+}
+
+/* Icon sits on the image/text seam: 120px image minus half the 48px badge */
+.service-icon {
+  position: absolute;
+  top: 96px;
+  right: 16px;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 3px solid var(--sz-card);
+  background-color: var(--sz-primary-soft);
+  color: var(--sz-primary-strong);
+  font-size: 20px;
+  z-index: 2;
+}
+
+.service-content {
+  padding: 16px 72px 16px 16px;
+}
+
+.service-content h3 {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--sz-text);
+}
+
+@media (max-width: 768px) {
+  .services-grid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px;
+  }
+
+  .service-content h3 {
+    font-size: 14px;
+  }
+}

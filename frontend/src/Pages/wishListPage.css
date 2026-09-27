@@ -1,0 +1,67 @@
+.wishlist-page {
+  padding: 16px 0 32px;
+}
+
+.wishlist-title {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -.01em;
+  padding-bottom: 14px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--sz-border);
+}
+
+.wishlist-count {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--sz-muted);
+}
+
+/* Calm empty state: centred text on the page, no boxed card. */
+.wishlist-empty {
+  padding: 64px 20px;
+  text-align: center;
+}
+
+.wishlist-empty-title {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.wishlist-empty-text {
+  margin-top: 6px;
+  color: var(--sz-muted);
+}
+
+.wishlist-empty-link {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 11px 22px;
+  background: var(--sz-gradient);
+  color: var(--sz-on-gradient);
+  border-radius: var(--sz-radius);
+  text-decoration: none;
+  font-weight: 600;
+  transition: background .15s;
+}
+
+.wishlist-empty-link:hover {
+  background: var(--sz-gradient-hover);
+}
+
+.wishlist-empty-link:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(111, 123, 247, .25);
+}
+
+@media (max-width: 768px) {
+  .wishlist-title {
+    font-size: 22px;
+  }
+  .wishlist-empty {
+    padding: 44px 8px;
+  }
+}

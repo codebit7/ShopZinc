@@ -1,0 +1,265 @@
+/* Order history + order details. ord- prefix so nothing leaks; shares acc- pieces from account.css. */
+
+/* ---------- Status badge: one hue per status, pale fill, no icons ---------- */
+.ord-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 20px;
+  white-space: nowrap;
+  background: #F3F4F6;
+  color: #4B5563;
+}
+.ord-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+.ord-badge--processing { background: #FEF6E4; color: #8A5A00; }
+.ord-badge--shipped { background: var(--sz-primary-soft); color: var(--sz-primary-strong); }
+.ord-badge--delivered { background: #E8F5EE; color: #0B7A45; }
+.ord-badge--cancelled { background: #F3F4F6; color: #6B7280; }
+/* Payment badge: same shape as the order badge, its own hues so the two never get confused. */
+.ord-pay--pending { background: #FEF6E4; color: #8A5A00; }
+.ord-pay--paid { background: #E8F5EE; color: #0B7A45; }
+.ord-pay--failed { background: #FDECEC; color: #B4232A; }
+
+/* Payment method under the payment status in the order list: secondary, so small and muted. */
+.ord-facts .ord-pay-method { display: block; margin-top: 1px; font-size: 12px; font-weight: 500; color: var(--sz-muted); }
+
+/* "Order placed" banner after checkout. Calm: soft green, no animation. */
+.ord-placed {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border: 1px solid #CDEBD9;
+  border-radius: var(--sz-radius);
+  background: #F1FAF5;
+  color: #0B5E36;
+  font-size: 14px;
+}
+.ord-placed-icon { flex: 0 0 auto; font-size: 18px; color: #0B7A45; }
+.ord-placed-text { margin: 0; flex: 1; min-width: 0; }
+.ord-placed-close {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+.ord-placed-close:hover { background: rgba(11, 122, 69, .1); }
+.ord-placed-close:focus-visible { outline: 2px solid var(--sz-primary); outline-offset: 2px; }
+
+/* ---------- Filter tabs ---------- */
+.ord-tabs {
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+  border-bottom: 1px solid var(--sz-border);
+  scrollbar-width: none;
+}
+.ord-tabs::-webkit-scrollbar { display: none; }
+.ord-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 12px;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  background: none;
+  color: var(--sz-muted);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.ord-tab:hover { color: var(--sz-text); }
+.ord-tab.is-active { color: var(--sz-text); font-weight: 600; border-bottom-color: var(--sz-text); }
+.ord-tab:focus-visible { outline: 2px solid var(--sz-primary); outline-offset: -2px; }
+.ord-tab-count { font-size: 12px; color: var(--sz-muted); font-variant-numeric: tabular-nums; }
+.ord-none { padding: 24px 0; }
+
+/* ---------- Order cards ---------- */
+.ord-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 16px; }
+.ord-card {
+  background: var(--sz-card);
+  border: 1px solid var(--sz-border);
+  border-radius: var(--sz-radius);
+  min-width: 0;
+}
+.ord-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 24px;
+  flex-wrap: wrap;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--sz-border);
+  background: #FBFBFD;
+  border-radius: var(--sz-radius) var(--sz-radius) 0 0;
+}
+.ord-facts {
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  gap: 4px 32px;
+  margin: 0;
+  min-width: 0;
+}
+.ord-facts dt { font-size: 12px; color: var(--sz-muted); font-weight: 500; }
+.ord-facts dd { margin: 2px 0 0; font-size: 14px; font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.ord-card-body {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 16px 20px;
+}
+.ord-card-status { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; min-width: 0; flex: 1 1 220px; }
+.ord-card-status .acc-muted { overflow-wrap: anywhere; }
+.ord-thumbs { list-style: none; display: flex; gap: 8px; margin: 0; padding: 0; }
+.ord-thumb {
+  width: 64px;
+  height: 64px;
+  border-radius: 6px;
+  border: 1px solid var(--sz-border);
+  background: var(--sz-bg);
+  overflow: hidden;
+  flex: 0 0 auto;
+}
+.ord-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ord-thumb--more {
+  display: grid;
+  place-items: center;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--sz-muted);
+}
+
+/* ---------- Details ---------- */
+.ord-back { align-self: flex-start; }
+
+.ord-steps {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 0;
+  padding: 0;
+}
+.ord-step {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-top: 30px;
+  font-size: 14px;
+  color: var(--sz-muted);
+  min-width: 0;
+}
+/* The rail: each step draws the line to its right; done steps draw it dark. */
+.ord-step::before {
+  content: "";
+  position: absolute;
+  top: 9px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--sz-border);
+}
+.ord-step:last-child::before { right: 100%; }
+.ord-step.is-linked::before { background: var(--sz-text); }
+.ord-step-dot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #fff;
+  border: 2px solid var(--sz-border);
+  color: #fff;
+  font-size: 12px;
+}
+.ord-step.is-done .ord-step-dot { background: var(--sz-text); border-color: var(--sz-text); }
+.ord-step.is-current .ord-step-dot { border-color: var(--sz-text); box-shadow: inset 0 0 0 4px #fff; background: var(--sz-text); }
+.ord-step.is-done .ord-step-label,
+.ord-step.is-current .ord-step-label { color: var(--sz-text); font-weight: 600; }
+.ord-step-date { font-size: 12px; }
+
+.ord-cancelled { display: flex; align-items: flex-start; gap: 12px; }
+.ord-cancelled > svg { font-size: 22px; color: var(--sz-muted); flex: 0 0 auto; margin-top: 1px; }
+.ord-cancelled-title { margin: 0 0 2px; font-weight: 600; }
+
+.ord-detail-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: 20px;
+  align-items: start;
+}
+.ord-aside { display: flex; flex-direction: column; gap: 20px; min-width: 0; }
+
+.ord-items { list-style: none; margin: 0; padding: 0; }
+.ord-item {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 0;
+  border-top: 1px solid var(--sz-border);
+}
+.ord-item:first-child { border-top: 0; padding-top: 0; }
+.ord-item-img {
+  width: 72px;
+  height: 72px;
+  border-radius: 6px;
+  border: 1px solid var(--sz-border);
+  background: var(--sz-bg);
+  overflow: hidden;
+}
+.ord-item-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ord-item-main { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.ord-item-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--sz-text);
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+a.ord-item-name:hover { text-decoration: underline; }
+.ord-item-total { font-size: 14px; font-weight: 600; font-variant-numeric: tabular-nums; }
+
+.ord-sum { margin: 0; display: flex; flex-direction: column; gap: 10px; }
+.ord-sum > div { display: flex; justify-content: space-between; gap: 12px; font-size: 14px; }
+.ord-sum dt { color: var(--sz-muted); }
+.ord-sum dd { margin: 0; font-weight: 500; text-align: right; font-variant-numeric: tabular-nums; min-width: 0; overflow-wrap: anywhere; }
+.ord-sum-total { padding-top: 10px; border-top: 1px solid var(--sz-border); }
+.ord-sum-total dt, .ord-sum-total dd { color: var(--sz-text); font-weight: 700; }
+.ord-sum-note { margin-top: 10px; }
+.ord-mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13px; }
+
+@media (max-width: 960px) {
+  .ord-detail-grid { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (max-width: 640px) {
+  .ord-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 16px; width: 100%; }
+  .ord-view { width: 100%; }
+  .ord-card-head, .ord-card-body { padding: 14px 16px; }
+  .ord-thumb { width: 52px; height: 52px; }
+  .ord-item { grid-template-columns: 56px minmax(0, 1fr); }
+  .ord-item-img { width: 56px; height: 56px; }
+  .ord-item-total { grid-column: 2; }
+  .ord-step { font-size: 12px; }
+  .ord-step-date { display: none; }
+}

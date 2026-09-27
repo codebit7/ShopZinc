@@ -1,0 +1,258 @@
+/* Page extras for Inventory + Customers. Scoped under .admin-layout because app.jsx loads the
+   admin statically, so bare class names would leak into the storefront. Base pieces live in adminlayout.css. */
+
+.admin-layout .inv-stats {
+  margin-bottom: 20px;
+}
+
+.admin-layout .inv-load-error {
+  margin: 12px 20px 0;
+}
+
+/* Product / person cell: thumb or avatar next to two text lines. */
+.admin-layout .inv-product,
+.admin-layout .cus-person {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 200px;
+}
+.admin-layout .inv-product-text {
+  min-width: 0;
+}
+.admin-layout .inv-name {
+  font-weight: 600;
+  color: var(--sz-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 260px;
+}
+.admin-layout .inv-thumb {
+  width: 40px;
+  height: 40px;
+  flex: none;
+  border-radius: 8px;
+  border: 1px solid var(--sz-border);
+  object-fit: cover;
+  background: var(--sz-bg);
+}
+.admin-layout .inv-thumb-empty {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--sz-muted);
+}
+
+/* Stock number + a thin bar; colour follows the status badge. */
+.admin-layout .inv-stock {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 110px;
+}
+.admin-layout .inv-stock .mono {
+  min-width: 32px;
+  text-align: right;
+}
+.admin-layout .inv-bar {
+  flex: 1;
+  max-width: 80px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--sz-border);
+  overflow: hidden;
+}
+.admin-layout .inv-bar > span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--sz-primary);
+}
+.admin-layout .inv-bar.warning > span { background: #d97706; }
+.admin-layout .inv-bar.critical > span { background: var(--sz-danger); }
+
+/* Inline stock editor. */
+.admin-layout .inv-editor {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+.admin-layout .inv-stepper {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+.admin-layout .inv-stock-input {
+  width: 72px;
+  text-align: right;
+  -moz-appearance: textfield;
+}
+.admin-layout .inv-stock-input::-webkit-outer-spin-button,
+.admin-layout .inv-stock-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.admin-layout .inv-row-error {
+  font-size: 12px;
+  margin: 0;
+}
+
+.admin-layout .adm-empty svg {
+  font-size: 28px;
+  color: var(--sz-muted);
+  margin-bottom: 8px;
+}
+
+/* ---------- Customers ---------- */
+
+.admin-layout .cus-row {
+  cursor: pointer;
+}
+.admin-layout .cus-row:hover td,
+.admin-layout .cus-row.selected td {
+  background: var(--sz-primary-soft);
+}
+.admin-layout .cus-row:focus-visible {
+  outline: 2px solid var(--sz-primary);
+  outline-offset: -2px;
+}
+
+.admin-layout .cus-avatar {
+  width: 34px;
+  height: 34px;
+  flex: none;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+  background: var(--sz-gradient);
+  color: var(--sz-on-gradient);
+}
+.admin-layout .cus-avatar.lg {
+  width: 44px;
+  height: 44px;
+  font-size: 18px;
+}
+
+.admin-layout .cus-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.28);
+  z-index: 1040;
+}
+
+/* Right-side drawer; full width on phones so it never overflows. */
+.admin-layout .cus-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(440px, 100vw);
+  background: var(--sz-card);
+  border-left: 1px solid var(--sz-border);
+  z-index: 1050;
+  display: flex;
+  flex-direction: column;
+  box-shadow: -8px 0 24px rgba(15, 23, 42, 0.08);
+}
+.admin-layout .cus-drawer-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--sz-border);
+}
+.admin-layout .cus-drawer-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 20px 24px;
+}
+.admin-layout .cus-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.admin-layout .cus-facts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  margin: 0 0 20px;
+  background: var(--sz-border);
+  border: 1px solid var(--sz-border);
+  border-radius: var(--sz-radius);
+  overflow: hidden;
+}
+.admin-layout .cus-facts > div {
+  background: var(--sz-card);
+  padding: 10px 12px;
+}
+.admin-layout .cus-facts dt {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--sz-muted);
+}
+.admin-layout .cus-facts dd {
+  margin: 2px 0 0;
+  font-weight: 600;
+}
+.admin-layout .cus-section-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--sz-muted);
+  margin: 0 0 8px;
+}
+.admin-layout .cus-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px;
+  border: 1px solid var(--sz-border);
+  border-radius: var(--sz-radius);
+}
+.admin-layout .cus-list > li {
+  padding: 10px 12px;
+  font-size: 14px;
+}
+.admin-layout .cus-list > li + li {
+  border-top: 1px solid var(--sz-border);
+}
+.admin-layout .cus-default {
+  margin-left: 8px;
+}
+.admin-layout .cus-order {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.admin-layout .cus-order-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.admin-layout .cus-order-meta .adm-badge {
+  text-transform: capitalize;
+}
+
+@media (max-width: 768px) {
+  .admin-layout .cus-drawer {
+    width: 100vw;
+    border-left: 0;
+  }
+  .admin-layout .inv-name {
+    max-width: 160px;
+  }
+}

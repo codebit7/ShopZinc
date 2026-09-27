@@ -1,0 +1,12 @@
+/* Own layout class: `.extraInfo` lived in FilterPage's pagesStyle.css, so this page only looked right if that file loaded. */
+/* Only the tabs live here now ("You may like" was removed), so no side-by-side flex. */
+.pd-extra {
+  margin-top: 32px;
+}
+
+@media (max-width: 768px) {
+  .pd-extra {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

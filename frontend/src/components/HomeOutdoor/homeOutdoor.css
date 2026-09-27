@@ -1,0 +1,199 @@
+/* Kept: other components read these globals */
+:root {
+  --bg-card: #ffffff;
+  --bg-left: #f5e8d8;
+  --text-dark: #000000;
+  --text-light: #666666;
+  --btn-bg: #000000;
+  --btn-text: #ffffff;
+  --light-blue: var(--sz-primary-soft);
+  --primary-blue: var(--sz-primary-strong);
+  --text-grey: #606770;
+  --background-grey: #f2f3f5;
+  --white: #ffffff;
+  --light-grey: #dee2e7;
+  --shadow: rgba(0, 0, 0, 0.1);
+}
+
+.home-outdoor-container {
+  display: flex;
+  align-items: stretch;
+  margin-top: 24px;
+  padding: 0 !important;
+  border: 1px solid var(--sz-border);
+  border-radius: var(--sz-radius);
+  background: var(--sz-card);
+  overflow: hidden;
+}
+
+.home-outdoor-info {
+  flex: 0 0 25%;
+  background: #f5e8d8;
+  position: relative;
+  overflow: hidden;
+}
+
+.home-outdoor-info::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #f5deb349;
+}
+
+.info-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Scoped: ".content" alone is too generic and would leak to other pages */
+.home-outdoor-info .content {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  right: 24px;
+  z-index: 1;
+}
+
+.home-outdoor-title {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: var(--sz-text);
+  margin: 0;
+}
+
+/* Solid navy instead of another gradient: the gradient is kept for the main CTAs */
+.source-btn {
+  background-color: var(--sz-text);
+  color: #fff;
+  border: none;
+  padding: 9px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 16px;
+  transition: background-color 0.15s;
+}
+
+.source-btn:hover {
+  background-color: var(--sz-primary-strong);
+}
+
+.source-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(111, 123, 247, .25);
+}
+
+.home-outdoor-items {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  flex: 1;
+  min-width: 0;
+}
+
+.home-outdoor-item {
+  position: relative;
+  background: var(--sz-card);
+  border-left: 1px solid var(--sz-border);
+  padding: 16px;
+  min-height: 127px;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.15s;
+  /* Tile is now a <Link>: anchors are inline and underlined by default */
+  display: block;
+  text-decoration: none;
+}
+
+.home-outdoor-item:nth-child(-n+4) {
+  border-bottom: 1px solid var(--sz-border);
+}
+
+/* Flat grid: tint + image zoom on hover instead of lifting a tile out of the grid */
+.home-outdoor-item:hover {
+  background: var(--sz-bg);
+}
+
+.home-outdoor-item:hover img {
+  transform: scale(1.08);
+}
+
+.home-outdoor-item img {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+  transition: transform 0.25s ease;
+}
+
+.home-outdoor-item p {
+  margin: 0 0 4px;
+  font-size: 15px;
+  color: var(--sz-text);
+  font-weight: 600;
+}
+
+/* Scoped: admin ViewProducts also uses .product-price */
+.home-outdoor-item .product-price {
+  font-size: 13px;
+  color: var(--sz-muted);
+}
+
+@media (max-width: 1024px) {
+  .home-outdoor-items {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .home-outdoor-item:nth-child(-n+6) {
+    border-bottom: 1px solid var(--sz-border);
+  }
+}
+
+@media (max-width: 768px) {
+  .home-outdoor-container {
+    flex-direction: column;
+  }
+
+  .home-outdoor-info {
+    flex: none;
+  }
+
+  .info-image {
+    max-height: 140px;
+  }
+
+  .home-outdoor-info .content {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .home-outdoor-item {
+    border-bottom: 1px solid var(--sz-border);
+    min-height: 110px;
+  }
+
+  .home-outdoor-item:nth-child(odd) {
+    border-left: none;
+  }
+
+  .home-outdoor-item img {
+    width: 56px;
+    height: 56px;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-outdoor-item {
+    padding: 12px;
+  }
+
+  .home-outdoor-item p {
+    font-size: 14px;
+  }
+}

@@ -1,0 +1,70 @@
+
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: var(--sz-font);
+}
+
+/* Shared design tokens: every page styles off these so the site looks like one product. */
+:root{
+  /* Brand: cyan -> indigo gradient. Gradients only work as backgrounds, so --sz-primary is the
+     solid indigo end for text, borders and focus rings; fills use --sz-gradient. */
+  --sz-gradient: linear-gradient(90deg, #9BF8F4, #6F7BF7);
+  --sz-gradient-hover: linear-gradient(90deg, #86F2EE, #5B68F2);
+  --sz-on-gradient: #0E1435;   /* text on the gradient: white fails contrast on the cyan end */
+  --sz-primary: #6F7BF7;
+  --sz-primary-hover: #5A66E8;
+  --sz-primary-strong: #3F4AC9; /* primary as text on white — #6F7BF7 is too light for small text */
+  --sz-primary-soft: #EEF0FF;
+  --sz-accent: #9BF8F4;
+  --sz-text: #0E1435;
+  --sz-muted: #6B7280;
+  --sz-border: #E5E7EB;
+  --sz-bg: #F8F9FC;
+  --sz-card: #FFFFFF;
+  --sz-success: #0F9D58;
+  --sz-danger: #E5484D;
+  --sz-radius: 8px;
+  --sz-shadow: 0 1px 2px rgba(14,20,53,.06);
+  --sz-shadow-hover: 0 6px 16px rgba(14,20,53,.08);
+  --sz-font: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+body{
+  background: var(--sz-bg);
+  color: var(--sz-text);
+}
+/* Hide the page scrollbar for a cleaner look — scrolling still works by wheel, keys and touch. */
+html{
+  scrollbar-width: none;      /* Firefox */
+  -ms-overflow-style: none;   /* old Edge */
+}
+html::-webkit-scrollbar{
+  display: none;              /* Chrome, Edge, Safari */
+}
+.container{
+    width: 85%;
+    margin: 0 auto;
+}
+
+
+.flex{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .outlet-container{
+    width: 100%;
+    padding: 15px 0;
+    /* background-color: #f6f6f6; */
+
+  }
+
+
+  @media (max-width:780px){
+    .container{
+      width: 95%;
+    }
+  }

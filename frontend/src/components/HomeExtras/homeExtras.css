@@ -1,0 +1,227 @@
+/* Home page sections built from real store data. Same look as "Recommended items":
+   plain heading, cards on --sz-card, hairline borders, no gradients. */
+
+.hx-section {
+  margin-top: 24px;
+}
+
+/* Inside the home page's gap stack, the gap already spaces the sections. */
+.home-stack .hx-section {
+  margin-top: 0;
+}
+
+.hx-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.hx-head h2 {
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--sz-text);
+  margin: 0;
+}
+
+.hx-link {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--sz-primary-strong);
+  text-decoration: none;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.hx-link:hover {
+  text-decoration: underline;
+}
+
+/* ---- Shop by category ----
+   Compact rows: round thumbnail, name, product count. Fits more categories in less height
+   than image tiles, and still reads well when a category has no cover image. */
+/* .hx-cats {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+} */
+/* One row that scrolls sideways when there are more categories than fit.
+   The scrollbar is hidden on purpose (design request); touch, trackpad and shift+wheel still scroll. */
+.hx-cats {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;      /* Firefox */
+  -ms-overflow-style: none;   /* old Edge */
+}
+
+.hx-cats::-webkit-scrollbar {
+  display: none;              /* Chrome, Edge, Safari */
+}
+
+.hx-cat {
+  /* Fixed width so the row overflows (and scrolls) instead of squeezing the cards. */
+  flex: 0 0 220px;
+  scroll-snap-align: start;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px 10px 10px;
+  background: var(--sz-card);
+  border: 1px solid var(--sz-border);
+  border-radius: var(--sz-radius);
+  text-decoration: none;
+  color: var(--sz-text);
+  transition: border-color 0.15s;
+}
+
+.hx-cat:hover {
+  border-color: #C9CEF9;
+}
+
+.hx-cat:hover .hx-cat-name {
+  color: var(--sz-primary-strong);
+}
+
+.hx-cat-thumb {
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--sz-primary-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.hx-cat-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* No cover image yet: the first letter, so the circle is not empty. */
+.hx-cat-letter {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--sz-primary-strong);
+}
+
+.hx-cat-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0; /* lets the name ellipsis work inside flex */
+}
+
+.hx-cat-name {
+  font-size: 15px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color 0.15s;
+}
+
+.hx-cat-count {
+  font-size: 13px;
+  color: var(--sz-muted);
+}
+
+/* ---- Shop by brand ---- */
+.hx-brands {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.hx-brand {
+  padding: 8px 14px;
+  border: 1px solid var(--sz-border);
+  border-radius: 999px;
+  background: var(--sz-card);
+  color: var(--sz-text);
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.hx-brand:hover {
+  border-color: var(--sz-primary);
+  color: var(--sz-primary-strong);
+}
+
+/* ---- Cart reminder ---- */
+.hx-cart {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 12px 16px;
+  background: var(--sz-primary-soft);
+  border: 1px solid #D9DDFB;
+  border-radius: var(--sz-radius);
+  font-size: 14px;
+  color: var(--sz-text);
+}
+
+.hx-cart strong {
+  font-variant-numeric: tabular-nums;
+}
+
+.hx-cart-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.hx-cart-btn {
+  height: 36px;
+  padding: 0 16px;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 6px;
+  background: var(--sz-primary);
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.hx-cart-btn:hover {
+  background: var(--sz-primary-hover);
+}
+
+@media (max-width: 768px) {
+  .hx-head h2 {
+    font-size: 20px;
+  }
+
+  /* Narrower cards on phones, so part of the next one shows and hints that the row scrolls. */
+  .hx-cats {
+    gap: 8px;
+  }
+
+  .hx-cat {
+    flex-basis: 170px;
+    padding: 8px;
+    gap: 8px;
+  }
+
+  .hx-cat-thumb {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* FeatureSection brings its own 32px top margin (for the cart page); on home the stack gap spaces it. */
+.home-stack .feature-section {
+  margin-top: 0;
+}

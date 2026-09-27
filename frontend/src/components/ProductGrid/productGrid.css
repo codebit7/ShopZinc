@@ -1,0 +1,140 @@
+/* Tiles, not floating cards: white image well with a hairline, info sits on the page below it */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 28px 18px;
+}
+
+.p-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.product-image-container {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  padding: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--sz-card);
+  border: 1px solid var(--sz-border);
+  border-radius: var(--sz-radius);
+  overflow: hidden;
+  transition: border-color 0.2s ease;
+}
+
+.product-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.35s ease;
+}
+
+.p-card:hover .product-image-container {
+  border-color: #CBD0DC;
+}
+
+.p-card:hover .product-image-container img {
+  transform: scale(1.05);
+}
+
+.p-card .wishList-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1;
+}
+
+/* scoped: productList.css also styles .wishlist-icon */
+.p-card .wishlist-icon {
+  display: block;
+  width: 32px;
+  height: 32px;
+  padding: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--sz-text);
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.p-card .wishlist-icon:hover,
+.p-card .wishlist-icon.filled {
+  color: var(--sz-danger);
+}
+
+.product-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 2px 0;
+}
+
+.product-pricing {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.product-pricing .price {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--sz-text);
+  font-variant-numeric: tabular-nums;
+}
+
+.old-price {
+  font-size: 13px;
+  color: var(--sz-muted);
+  text-decoration: line-through;
+}
+
+.product-rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: #FF9017;
+}
+
+.rating-value {
+  font-weight: 600;
+  color: var(--sz-text);
+}
+
+.reviews {
+  color: var(--sz-muted);
+}
+
+.grid-product-title {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--sz-text);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-underline-offset: 3px;
+}
+
+.p-card:hover .grid-product-title {
+  text-decoration: underline;
+}
+
+@media (max-width: 1280px) {
+  .product-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (max-width: 992px) {
+  .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 480px) {
+  .product-grid { grid-template-columns: 1fr; }
+}

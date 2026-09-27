@@ -1,0 +1,83 @@
+.recommended-items h2 {
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--sz-text);
+  margin-bottom: 16px;
+}
+
+.recommend-product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.recommend-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--sz-card);
+  border: 1px solid var(--sz-border);
+  border-radius: var(--sz-radius);
+  padding: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+
+/* Hairline + image zoom on hover, no card lift */
+.recommend-card:hover {
+  border-color: #C9CEF9;
+}
+
+.recommend-card:hover .recommend-product-image {
+  transform: scale(1.05);
+}
+
+.recommend-card:hover .recommend-product-title {
+  color: var(--sz-primary-strong);
+}
+
+/* Fixed height + contain so product photos of any shape line up in the grid */
+.recommend-product-image {
+  width: 100%;
+  height: 180px;
+  object-fit: contain;
+  border-radius: 6px;
+  background: var(--sz-bg);
+  transition: transform 0.25s ease;
+}
+
+.p-price {
+  font-weight: 800;
+  color: var(--sz-text);
+  font-size: 17px;
+  letter-spacing: -0.01em;
+  margin: 12px 0 4px;
+  font-variant-numeric: tabular-nums;
+}
+
+.recommend-product-title {
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--sz-muted);
+  transition: color 0.15s;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .recommend-product-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 12px;
+  }
+
+  .recommend-card {
+    padding: 12px;
+  }
+
+  .recommend-product-image {
+    height: 140px;
+  }
+}

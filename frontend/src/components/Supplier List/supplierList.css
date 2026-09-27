@@ -1,0 +1,84 @@
+.suppliers {
+  background: var(--sz-card);
+  border: 1px solid var(--sz-border);
+  border-radius: var(--sz-radius);
+  padding: 24px;
+}
+
+/* !important kept: bootstrap (loaded by admin pages) restyles <p> once visited */
+.supplier-header {
+  font-size: 24px !important;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--sz-text);
+  margin: 0 0 16px !important;
+  padding: 0 !important;
+}
+
+.suppliers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 16px 24px;
+}
+
+.supplier-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  padding: 6px;
+  margin: -6px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.supplier-item:hover {
+  background: var(--sz-bg);
+}
+
+.supplier-item:hover .country {
+  color: var(--sz-primary-strong);
+}
+
+.flag {
+  width: 28px;
+  height: 20px;
+  flex-shrink: 0;
+  object-fit: cover;
+  border-radius: 2px;
+  box-shadow: 0 0 0 1px rgba(14, 20, 53, 0.08);
+}
+
+.user-supplier-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.country {
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  color: var(--sz-text);
+  margin: 0 !important;
+}
+
+.domain {
+  font-size: 13px !important;
+  color: var(--sz-muted) !important;
+  margin: 0 !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .suppliers {
+    padding: 16px;
+  }
+
+  .suppliers-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+}

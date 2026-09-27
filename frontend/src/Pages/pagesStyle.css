@@ -1,0 +1,42 @@
+.product-container{
+    display: flex;
+    align-items: flex-start;
+    gap: 32px;
+    margin-bottom: 24px;
+}
+
+/* flex:1 + min-width:0 lets the list shrink instead of pushing the page sideways */
+.products-section{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    flex: 1;
+    min-width: 0;
+}
+
+.products-container{
+    width: 100%;
+}
+
+/* still used by ProductDetailsPage */
+.extraInfo{
+    display: flex;
+    gap: 20px;
+    align-items: start;
+    justify-content: start;
+    margin-top: 20px;
+}
+
+/* sidebar moves above the list on small screens */
+@media(max-width: 768px){
+    .product-container{
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
+
+@media(max-width: 740px){
+    .extraInfo{
+        flex-direction: column;
+    }
+}

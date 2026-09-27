@@ -1,0 +1,88 @@
+/* Understated: plain numbers, only the current page gets the brand fill */
+.pagination-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 12px;
+  padding-top: 16px;
+  border-top: 1px solid var(--sz-border);
+}
+
+.items-per-page {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--sz-muted);
+}
+
+.items-per-page select {
+  height: 32px;
+  padding: 0 8px;
+  border: 1px solid var(--sz-border);
+  border-radius: 6px;
+  background: var(--sz-card);
+  font-size: 14px;
+  color: var(--sz-text);
+  cursor: pointer;
+}
+
+.items-per-page select:focus {
+  outline: none;
+  border-color: var(--sz-primary);
+  box-shadow: 0 0 0 3px rgba(111, 123, 247, .25);
+}
+
+.pagination-buttons {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.pagination-btn {
+  min-width: 34px;
+  height: 34px;
+  padding: 0 8px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--sz-text);
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+
+.pagination-btn:hover:not(.active):not(:disabled) {
+  border-color: var(--sz-border);
+  background: var(--sz-card);
+}
+
+.pagination-btn.active {
+  background: var(--sz-gradient);
+  color: var(--sz-on-gradient);
+  font-weight: 700;
+}
+
+.pagination-btn:disabled {
+  color: #C3C7D1;
+  cursor: not-allowed;
+}
+
+.pagination-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(111, 123, 247, .25);
+}
+
+/* The "…" between page numbers (BUG-79). Same box as a button so the row does not jump. */
+.pagination-ellipsis {
+  min-width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--sz-muted);
+}

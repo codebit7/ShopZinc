@@ -1,0 +1,26 @@
+/* Courier page. Mostly reuses the shared adm-* classes; only the few extras live here. */
+.crr-tabs {
+  margin-bottom: 1rem;
+}
+
+.crr-grow {
+  flex: 1;
+  margin: 0;
+}
+
+.crr-ok {
+  color: var(--sz-success, #1a7f37);
+  margin: 0.5rem 0;
+}
+
+.crr-settings {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.crr-settings .adm-field small {
+  display: block;
+  margin-top: 0.25rem;
+}

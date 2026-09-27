@@ -1,0 +1,450 @@
+.cart-count {
+  margin-top: 16px;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -.01em;
+}
+
+/* Items list left, summary right; stacks at <=768px. */
+.main-shopping-cart {
+  display: flex;
+  align-items: flex-start;
+  gap: 40px;
+  margin-top: 16px;
+}
+
+/* Line-item list: hairline rules only, no card around it. */
+.shopping-cart {
+  flex: 1;
+  min-width: 0;
+  border-top: 1px solid var(--sz-text);
+}
+
+.cart-item {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--sz-border);
+}
+
+.cart-content-box {
+  display: flex;
+  gap: 20px;
+  min-width: 0;
+  flex: 1;
+}
+
+.cart-item-image {
+  flex: 0 0 auto;
+  width: 104px;
+  height: 104px;
+  padding: 10px;
+  background: #F1F2F6;
+  border-radius: var(--sz-radius);
+}
+
+.cart-item-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}
+
+.cart-item-details {
+  flex: 1;
+  min-width: 0;
+}
+
+.cart-item-details h4 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--sz-text);
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.cart-item-details p {
+  margin-top: 4px;
+  font-size: 14px;
+  color: var(--sz-muted);
+}
+
+.cart-item-details .seller {
+  font-size: 13px;
+}
+
+.cart-buttons {
+  display: flex;
+  gap: 18px;
+  margin-top: 12px;
+}
+
+/* Subtle text links rather than boxed buttons. */
+.remove-btn,
+.save-btn {
+  padding: 0;
+  background: none;
+  border: none;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.remove-btn {
+  color: var(--sz-danger);
+}
+
+.save-btn {
+  color: var(--sz-primary-strong);
+}
+
+.remove-btn:hover,
+.save-btn:hover {
+  text-decoration: underline;
+}
+
+.cart-item-price {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.cart-item-price strong {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--sz-text);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Squared stepper, not a pill. */
+.quantity-controls {
+  display: inline-flex;
+  align-items: center;
+  height: 36px;
+  border: 1px solid var(--sz-border);
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--sz-card);
+}
+
+.quantity-controls button {
+  width: 34px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  color: var(--sz-muted);
+  font-size: 11px;
+  cursor: pointer;
+  transition: background .15s, color .15s;
+}
+
+.quantity-controls button:hover {
+  background: var(--sz-primary-soft);
+  color: var(--sz-primary-strong);
+}
+
+.quantity-controls span {
+  min-width: 32px;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.cart-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 20px 0;
+}
+
+.back-btn,
+.remove-all-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: var(--sz-radius);
+  cursor: pointer;
+  transition: background .15s, border-color .15s, color .15s;
+}
+
+/* Secondary actions: the only gradient on this page is Checkout. */
+.back-btn {
+  background: var(--sz-card);
+  border: 1px solid var(--sz-border);
+  color: var(--sz-text);
+}
+
+.back-btn:hover {
+  border-color: var(--sz-primary);
+  color: var(--sz-primary-strong);
+}
+
+.remove-all-btn {
+  background: none;
+  border: 1px solid transparent;
+  color: var(--sz-danger);
+}
+
+.remove-all-btn:hover {
+  border-color: var(--sz-border);
+}
+
+/* Empty state */
+.empty-cart {
+  padding: 56px 0 40px;
+  text-align: center;
+  border-bottom: 1px solid var(--sz-border);
+}
+
+.empty-cart-title {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.empty-cart-text {
+  margin-top: 6px;
+  color: var(--sz-muted);
+}
+
+.empty-cart-link {
+  display: inline-block;
+  margin-top: 16px;
+  color: var(--sz-primary-strong);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.empty-cart-link:hover {
+  text-decoration: underline;
+}
+
+/* Summary: sticky so the total and checkout stay visible while scrolling a long cart. */
+.checkout-summary {
+  flex: 0 0 340px;
+  position: sticky;
+  top: 16px;
+  display: flex;
+  flex-direction: column;
+  background: var(--sz-bg);
+  border: 1px solid var(--sz-border);
+  border-radius: var(--sz-radius);
+  padding: 22px;
+}
+
+.coupon-section {
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--sz-border);
+}
+
+.coupon-section label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--sz-text);
+  margin-bottom: 8px;
+}
+
+.coupon-input {
+  display: flex;
+  gap: 8px;
+}
+
+.coupon-input input {
+  flex: 1;
+  min-width: 0;
+  padding: 9px 12px;
+  border: 1px solid var(--sz-border);
+  border-radius: var(--sz-radius);
+  background: var(--sz-card);
+  font-size: 14px;
+  font-family: inherit;
+  transition: border-color .15s, box-shadow .15s;
+}
+
+.coupon-input input:focus {
+  outline: none;
+  border-color: var(--sz-primary);
+  box-shadow: 0 0 0 3px rgba(111, 123, 247, .25);
+}
+
+.coupon-input button {
+  flex: 0 0 auto;
+  padding: 9px 16px;
+  background: var(--sz-gradient);
+  color: var(--sz-on-gradient);
+  border: none;
+  border-radius: var(--sz-radius);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .15s;
+}
+
+.coupon-input button:hover {
+  background: var(--sz-gradient-hover);
+}
+
+.summary-box {
+  padding-top: 8px;
+}
+
+.summary-box p {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: var(--sz-muted);
+  margin: 10px 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.summary-box p span {
+  color: var(--sz-text);
+}
+
+.summary-box .discount span {
+  color: var(--sz-danger);
+}
+
+.summary-box .tax span {
+  color: var(--sz-text);
+}
+
+/* Total is the loudest line in the panel. */
+.summary-box .total {
+  align-items: baseline;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--sz-border);
+  font-size: 15px;
+  color: var(--sz-text);
+}
+
+.summary-box .total strong:last-child {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -.01em;
+}
+
+.checkout-btn {
+  width: 100%;
+  margin-top: 16px;
+  padding: 15px;
+  background: var(--sz-gradient);
+  color: var(--sz-on-gradient);
+  border: none;
+  border-radius: var(--sz-radius);
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background .15s;
+}
+
+.checkout-btn:hover {
+  background: var(--sz-gradient-hover);
+}
+
+.coupon-input button:focus-visible,
+.checkout-btn:focus-visible,
+.back-btn:focus-visible,
+.remove-all-btn:focus-visible,
+.quantity-controls button:focus-visible,
+.remove-btn:focus-visible,
+.save-btn:focus-visible,
+.empty-cart-link:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(111, 123, 247, .25);
+}
+
+.payment-icons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.payment-icons img {
+  width: 32px;
+  height: auto;
+}
+
+@media (max-width: 768px) {
+  .cart-count {
+    font-size: 22px;
+  }
+
+  .main-shopping-cart {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 20px;
+  }
+
+  .cart-item {
+    flex-direction: column;
+    gap: 12px;
+    padding: 18px 0;
+  }
+
+  .cart-content-box {
+    gap: 14px;
+  }
+
+  .cart-item-image {
+    width: 72px;
+    height: 72px;
+    padding: 6px;
+  }
+
+  .cart-item-details h4 {
+    font-size: 15px;
+  }
+
+  /* Price left, stepper right on one row under the item. */
+  .cart-item-price {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .cart-footer {
+    flex-wrap: wrap;
+  }
+
+  .checkout-summary {
+    flex-basis: auto;
+    position: static;
+    padding: 18px;
+  }
+}
+
+/* Why: plus stops at stock and Checkout is off for an empty cart; users must see they are disabled. */
+.quantity-controls button:disabled,
+.checkout-btn:disabled {
+  opacity: .45;
+  cursor: not-allowed;
+}
+
+/* Server message like "Only 3 left", shown next to the summary. */
+.cart-error {
+  margin: 0 0 12px;
+  color: var(--sz-danger);
+  font-size: 14px;
+}
+
+/* "Add Rs X more for free delivery" under the delivery line. */
+.summary-box .cart-free-hint {
+  font-size: 0.85rem;
+  color: var(--sz-success, #1a7f37);
+}

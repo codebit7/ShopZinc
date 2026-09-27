@@ -1,0 +1,50 @@
+.path {
+  padding: 14px 0;
+  font-size: 13px;
+  color: var(--sz-muted);
+}
+
+.path-list {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.path-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.path-link {
+  color: var(--sz-muted);
+  text-decoration: none;
+  text-underline-offset: 3px;
+  transition: color 0.2s ease;
+}
+
+.path-link:hover {
+  color: var(--sz-primary-strong);
+  text-decoration: underline;
+}
+
+.path-link:focus-visible {
+  outline: none;
+  border-radius: 4px;
+  box-shadow: 0 0 0 3px rgba(111, 123, 247, .25);
+}
+
+.path-separator {
+  font-size: 9px;
+  color: #B8BDC9;
+}
+
+/* last crumb is the current page */
+.path-item:last-child .path-link {
+  color: var(--sz-text);
+  font-weight: 600;
+}

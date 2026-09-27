@@ -1,0 +1,154 @@
+.request-quote-container {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  background: url("./../../assets/Form/file/req.jpg") center/cover no-repeat;
+  border-radius: var(--sz-radius);
+  overflow: hidden;
+  padding: 40px;
+  min-height: 300px;
+}
+
+.request-quote-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  /* Brand gradient band over the photo; dense enough that navy text stays readable */
+  background: linear-gradient(90deg, rgba(155, 248, 244, 0.94) 0%, rgba(111, 123, 247, 0.9) 100%);
+  z-index: 1;
+}
+
+.quote-text {
+  flex: 1 1 50%;
+  max-width: 520px;
+  color: var(--sz-on-gradient);
+  position: relative;
+  z-index: 2;
+}
+
+.quote-text h2 {
+  font-size: 34px;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+}
+
+.quote-text p {
+  font-size: 15px;
+  line-height: 1.5;
+  margin-top: 12px;
+  opacity: 0.8;
+}
+
+.quote-form {
+  flex: 0 1 420px;
+  background: var(--sz-card);
+  padding: 24px;
+  border-radius: var(--sz-radius);
+  box-shadow: 0 12px 32px rgba(14, 20, 53, 0.18);
+  position: relative;
+  z-index: 2;
+}
+
+.quote-form h3 {
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--sz-text);
+}
+
+.quote-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.quote-form input,
+.quote-form textarea,
+.quote-form select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--sz-border);
+  border-radius: 6px;
+  font-size: 14px;
+  color: var(--sz-text);
+  background: var(--sz-card);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.quote-form input:focus,
+.quote-form textarea:focus,
+.quote-form select:focus {
+  outline: none;
+  border-color: var(--sz-primary);
+  box-shadow: 0 0 0 3px rgba(111, 123, 247, .25);
+}
+
+.quote-form textarea {
+  resize: none;
+  height: 72px;
+}
+
+/* Scoped to .quote-form: bootstrap (loaded by the admin pages) also defines .input-group */
+.quote-form .input-group {
+  display: flex;
+  flex-wrap: nowrap;
+  width: 70%;
+  gap: 10px;
+}
+
+.quote-form .input-group input,
+.quote-form .input-group select {
+  flex: 1;
+  min-width: 0;
+}
+
+.quote-form button {
+  align-self: flex-start;
+  background: var(--sz-gradient);
+  color: var(--sz-on-gradient);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.quote-form button:hover {
+  background: var(--sz-gradient-hover);
+}
+
+.quote-form button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(111, 123, 247, .25);
+}
+
+@media (max-width: 768px) {
+  .request-quote-container {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 24px 16px;
+  }
+
+  .quote-text {
+    max-width: none;
+  }
+
+  .quote-text h2 {
+    font-size: 24px;
+  }
+
+  .quote-form {
+    flex-basis: auto;
+    padding: 16px;
+  }
+
+  .quote-form .input-group {
+    width: 100%;
+  }
+}

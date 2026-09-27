@@ -1,0 +1,104 @@
+/* Admin settings / profile page: tab menu on the left, form on the right.
+   Uses the shared adm-* styles and --sz-* tokens, so it follows the admin light/dark theme. */
+
+.admin-layout .ap-layout {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  min-height: 420px;
+}
+
+/* ---------- Tab menu ---------- */
+.ap-tabs {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px 12px;
+  border-right: 1px solid var(--sz-border);
+}
+.ap-tab {
+  display: flex; align-items: center; gap: 10px;
+  width: 100%;
+  padding: 10px 12px;
+  border: 0; border-radius: 8px;
+  background: none;
+  color: var(--sz-muted);
+  font: inherit; font-size: 14px; font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.ap-tab:hover { background: var(--sz-bg); color: var(--sz-text); }
+.ap-tab.active { background: var(--sz-primary-soft); color: var(--sz-primary-strong); }
+.ap-tab:focus-visible { outline: 2px solid var(--sz-primary); outline-offset: 1px; }
+.ap-tab svg { flex-shrink: 0; font-size: 16px; }
+
+/* ---------- Panel ---------- */
+.ap-panel { padding: 24px 28px; min-width: 0; max-width: 720px; }
+.ap-panel-head { padding-bottom: 16px; margin-bottom: 20px; border-bottom: 1px solid var(--sz-border); }
+.ap-panel-head h3 { margin: 0; font-size: 18px; font-weight: 700; color: var(--sz-text); }
+.ap-panel-head p { margin: 4px 0 0; font-size: 14px; color: var(--sz-muted); }
+
+.ap-identity { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; min-width: 0; }
+.ap-avatar {
+  flex: 0 0 64px; height: 64px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: var(--sz-gradient); color: var(--sz-on-gradient);
+  font-size: 22px; font-weight: 700;
+}
+.ap-identity-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.ap-identity-text strong { font-size: 16px; color: var(--sz-text); overflow-wrap: anywhere; }
+.ap-identity-text span { font-size: 13px; color: var(--sz-muted); text-transform: none; }
+
+/* Label on the left, field on the right, like most settings pages. */
+.ap-form { display: flex; flex-direction: column; gap: 18px; }
+.ap-row {
+  display: grid;
+  grid-template-columns: 160px minmax(0, 1fr);
+  gap: 8px 20px;
+  align-items: start;
+}
+.ap-row-label { padding-top: 9px; font-size: 14px; font-weight: 600; color: var(--sz-text); }
+.ap-row-field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.ap-hint { display: inline-flex; align-items: center; gap: 4px; flex-wrap: wrap; font-size: 12px; color: var(--sz-muted); }
+.ap-form-foot {
+  display: flex; justify-content: flex-end; align-items: center; gap: 12px;
+  padding-top: 18px; border-top: 1px solid var(--sz-border);
+}
+.ap-saved { display: inline-flex; align-items: center; gap: 6px; color: #0B7A45; font-weight: 600; font-size: 14px; }
+.admin-layout.theme-dark .ap-saved { color: #6FD3A0; }
+
+/* ---------- Security rows ---------- */
+.ap-setting {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--sz-border);
+}
+.ap-setting:last-child { border-bottom: 0; }
+.ap-setting-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.ap-setting-text strong { font-size: 14px; color: var(--sz-text); }
+.ap-setting-text span { font-size: 13px; color: var(--sz-muted); }
+.ap-setting .adm-btn { flex-shrink: 0; }
+.ap-setting-text .ap-setting-msg { margin-top: 4px; color: #0B7A45; }
+.ap-setting-text .ap-setting-msg.err { color: var(--sz-danger); }
+.admin-layout.theme-dark .ap-setting-text .ap-setting-msg { color: #6FD3A0; }
+.admin-layout.theme-dark .ap-setting-text .ap-setting-msg.err { color: var(--sz-danger); }
+
+/* ---------- Small screens: tabs go on top, rows stack ---------- */
+@media (max-width: 760px) {
+  .admin-layout .ap-layout { grid-template-columns: minmax(0, 1fr); min-height: 0; }
+  .ap-tabs {
+    flex-direction: row;
+    padding: 8px;
+    border-right: 0;
+    border-bottom: 1px solid var(--sz-border);
+    overflow-x: auto;
+  }
+  .ap-tab { width: auto; flex: 0 0 auto; }
+  .ap-panel { padding: 20px 16px; }
+  .ap-row { grid-template-columns: minmax(0, 1fr); }
+  .ap-row-label { padding-top: 0; }
+}
+@media (max-width: 480px) {
+  .ap-setting { flex-direction: column; align-items: stretch; }
+  .ap-setting .adm-btn { justify-content: center; }
+}

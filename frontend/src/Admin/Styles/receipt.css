@@ -1,0 +1,86 @@
+/* Printable order receipt. Always light (it is paper), outside the admin layout. */
+.rc-page {
+  min-height: 100vh;
+  padding: 24px 16px 48px;
+  background: #F3F4F7;
+  color: #1B1F2A;
+  font-family: var(--sz-font, system-ui, sans-serif);
+}
+.rc-msg { max-width: 760px; margin: 16px auto; }
+.rc-toolbar {
+  max-width: 760px; margin: 0 auto 16px;
+  display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap;
+}
+.rc-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  height: 38px; padding: 0 16px;
+  border: 1px solid transparent; border-radius: 8px;
+  background: #3F4AC9; color: #fff;
+  font: inherit; font-size: 14px; font-weight: 600; text-decoration: none; cursor: pointer;
+}
+.rc-btn:hover { background: #3540B0; color: #fff; }
+.rc-btn.ghost { background: transparent; color: #3F4AC9; border-color: #D6D9E3; }
+.rc-btn.ghost:hover { background: #fff; color: #3F4AC9; }
+.rc-btn:focus-visible { outline: 2px solid #3F4AC9; outline-offset: 2px; }
+
+.rc-sheet {
+  max-width: 760px; margin: 0 auto;
+  padding: 40px;
+  background: #fff;
+  border: 1px solid #E3E5EC; border-radius: 12px;
+}
+.rc-muted { color: #6B7280; font-size: 13px; }
+
+.rc-head {
+  display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; flex-wrap: wrap;
+  padding-bottom: 24px; border-bottom: 2px solid #1B1F2A;
+}
+.rc-brand { font-size: 26px; font-weight: 800; letter-spacing: -0.02em; }
+.rc-meta { margin: 0; display: grid; gap: 4px; }
+.rc-meta > div { display: flex; gap: 12px; justify-content: space-between; }
+.rc-meta dt { color: #6B7280; font-size: 13px; }
+.rc-meta dd { margin: 0; font-weight: 600; font-size: 14px; }
+
+.rc-parties {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px;
+  padding: 24px 0;
+}
+.rc-parties h3 {
+  margin: 0 0 6px; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #6B7280;
+}
+.rc-parties p { margin: 0 0 2px; font-size: 14px; overflow-wrap: anywhere; }
+
+.rc-items { width: 100%; border-collapse: collapse; font-size: 14px; }
+.rc-items th {
+  padding: 10px 8px; text-align: left;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #6B7280;
+  border-bottom: 1px solid #E3E5EC; background: #F8F9FB;
+}
+.rc-items td { padding: 12px 8px; border-bottom: 1px solid #EEF0F4; vertical-align: top; }
+.rc-items .num { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.rc-item-name { font-weight: 600; }
+
+.rc-totals { margin: 16px 0 0 auto; max-width: 300px; display: grid; gap: 6px; }
+.rc-totals > div { display: flex; justify-content: space-between; gap: 16px; font-size: 14px; }
+.rc-totals dt { color: #6B7280; }
+.rc-totals dd { margin: 0; font-variant-numeric: tabular-nums; }
+.rc-totals .rc-grand { padding-top: 10px; margin-top: 4px; border-top: 2px solid #1B1F2A; font-size: 17px; font-weight: 800; }
+.rc-totals .rc-grand dt { color: #1B1F2A; }
+
+.rc-foot { margin-top: 40px; padding-top: 16px; border-top: 1px solid #EEF0F4; text-align: center; color: #6B7280; font-size: 13px; }
+
+@media (max-width: 640px) {
+  .rc-sheet { padding: 20px; }
+  .rc-parties { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+  .rc-items th:nth-child(3), .rc-items td:nth-child(3) { display: none; }
+}
+
+@media print {
+  @page { size: A4; margin: 14mm; }
+  .rc-page { padding: 0; background: #fff; min-height: 0; }
+  .rc-toolbar { display: none; }
+  .rc-sheet { max-width: none; border: 0; border-radius: 0; padding: 0; }
+  .rc-items tr { break-inside: avoid; }
+}
+.rc-toolbar-right { display: flex; gap: 8px; flex-wrap: wrap; }
+.rc-btn:disabled { opacity: 0.6; cursor: default; }

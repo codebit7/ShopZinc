@@ -1,0 +1,160 @@
+:root {
+    --primary-blue: var(--sz-primary-strong); /* rebrand: other components read this */
+    --text-grey: #606770;
+    --background-grey: #F2F3F5;
+    --white: #FFFFFF;
+}
+
+.newsletter-container {
+    background-color: var(--background-grey);
+    text-align: center;
+    padding: 40px 16px;
+}
+
+
+.title {
+    font-size: 18px;
+    font-weight: bold;
+    color: black;
+    margin-bottom: 5px;
+}
+
+
+.description {
+    font-size: 14px;
+    color: var(--text-grey);
+    margin-bottom: 15px;
+}
+
+
+.input-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+
+.email-input {
+    display: flex;
+    align-items: center;
+    background-color: var(--white);
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    width: 300px;
+}
+
+.email-icon {
+    color: var(--text-grey);
+    margin-right: 5px;
+}
+
+.email-input input {
+    border: none;
+    outline: none;
+    font-size: 14px;
+    width: 100%;
+}
+
+
+.subscribe-button {
+    background-color: var(--primary-blue);
+    color: var(--white);
+    border: none;
+    padding: 10px 15px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.subscribe-button:hover {
+    background-color: var(--sz-primary-hover);
+}
+
+
+/* Redesign overrides, scoped to .newsletter-container. The unscoped rules above
+   stay because .title/.description and the :root vars are also used by other
+   components (SavedForLater, AuthenticationPage, Footer, NavBar). */
+/* Dark band so the page ends on a different rhythm than the gradient quote band above */
+.newsletter-container {
+    background: var(--sz-text);
+    padding: 56px 16px;
+}
+
+.newsletter-container .title {
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: #fff;
+    margin-bottom: 8px;
+}
+
+.newsletter-container .description {
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 24px;
+}
+
+.newsletter-container .input-container {
+    align-items: stretch;
+    gap: 8px;
+    max-width: 440px;
+    margin: 0 auto;
+}
+
+.newsletter-container .email-input {
+    flex: 1;
+    width: auto;
+    min-width: 0;
+    padding: 0 12px;
+    border-radius: 6px;
+    border-color: transparent;
+    transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.newsletter-container .email-input:focus-within {
+    border-color: var(--sz-primary);
+    box-shadow: 0 0 0 3px rgba(111, 123, 247, .35);
+}
+
+.newsletter-container .email-icon {
+    color: var(--sz-muted);
+    margin-right: 8px;
+    flex-shrink: 0;
+}
+
+.newsletter-container .email-input input {
+    padding: 11px 0;
+    background: transparent;
+    color: var(--sz-text);
+}
+
+.newsletter-container .subscribe-button {
+    background: var(--sz-gradient);
+    color: var(--sz-on-gradient);
+    padding: 0 22px;
+    border-radius: 6px;
+    font-weight: 700;
+    transition: background 0.15s;
+}
+
+.newsletter-container .subscribe-button:hover {
+    background: var(--sz-gradient-hover);
+}
+
+.newsletter-container .subscribe-button:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(111, 123, 247, .35);
+}
+
+@media (max-width: 480px) {
+    .newsletter-container .input-container {
+        flex-direction: column;
+    }
+
+    .newsletter-container .subscribe-button {
+        padding: 11px 20px;
+    }
+}

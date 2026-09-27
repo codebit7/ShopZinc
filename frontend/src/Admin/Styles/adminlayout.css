@@ -1,0 +1,520 @@
+/* Every admin rule is prefixed with .admin-layout: these files load on every page
+   (app.jsx imports the admin statically), so bare class names would leak into the storefront.
+   This file = the shell + the shared adm-* design system every admin page is written against. */
+
+/* ================= Shell ================= */
+/* The layout is exactly one viewport tall and never scrolls itself; only .adm-main scrolls.
+   That keeps the sidebar full height and makes horizontal page scroll impossible. */
+.admin-layout {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh; /* mobile browsers: 100vh hides the bottom behind the URL bar */
+  overflow: hidden;
+  background: var(--sz-bg);
+  color: var(--sz-text);
+  font-family: var(--sz-font);
+  font-size: 14px;
+}
+
+.admin-layout .adm-main {
+  flex: 1;
+  min-width: 0; /* lets wide tables scroll inside their card instead of widening the page */
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.admin-layout .adm-page {
+  flex: 1;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 24px;
+  min-width: 0;
+}
+
+/* Click-outside layer for the phone drawer / expanded tablet rail. */
+.admin-layout .adm-overlay { display: none; }
+
+@media (max-width: 1023.98px) {
+  .admin-layout.menu-open .adm-overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 30;
+    background: rgba(14, 20, 53, 0.35);
+  }
+}
+
+/* Tablet: sidebar is a fixed 64px rail (sidebar.css), so reserve its width. */
+@media (min-width: 768px) and (max-width: 1023.98px) {
+  .admin-layout .adm-main { margin-left: 64px; }
+}
+
+@media (max-width: 767.98px) {
+  .admin-layout .adm-page { padding: 16px; }
+}
+
+/* ================= Page head ================= */
+.admin-layout .adm-page-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px 16px;
+  margin-bottom: 20px;
+}
+.admin-layout .adm-page-head > :first-child { min-width: 0; }
+.admin-layout .adm-page-head h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+  color: var(--sz-text);
+}
+.admin-layout .adm-page-head p {
+  margin: 4px 0 0;
+  font-size: 14px;
+  color: var(--sz-muted);
+}
+.admin-layout .adm-page-head-actions,
+.admin-layout .adm-page-head > :last-child:not(:first-child) {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ================= Card ================= */
+/* Flat bordered surface, no drop shadow: hairlines carry the structure (Shopify/Stripe admin style). */
+.admin-layout .adm-card {
+  min-width: 0;
+  background: var(--sz-card);
+  border: 1px solid var(--sz-border);
+  border-radius: var(--sz-radius);
+}
+.admin-layout .adm-card + .adm-card { margin-top: 16px; }
+/* Grids space cards with `gap`; the stacking margin above pushed every 2nd card in a row 16px lower. */
+.admin-layout [class*="grid"] > .adm-card + .adm-card { margin-top: 0; }
+
+.admin-layout .adm-card-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px 12px;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--sz-border);
+}
+.admin-layout .adm-card-header h4 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.admin-layout .adm-card-body { padding: 16px; }
+
+/* ================= Toolbar / search ================= */
+.admin-layout .adm-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+}
+.admin-layout .adm-card > .adm-toolbar { border-bottom: 1px solid var(--sz-border); }
+/* Controls inside a toolbar size to their content; the global width:100% made a filter select
+   take a whole row and stacked the toolbar into 3 lines. */
+.admin-layout .adm-toolbar > .adm-select,
+.admin-layout .adm-toolbar > .adm-input { width: auto; min-width: 160px; flex: 0 0 auto; }
+@media (max-width: 767.98px) {
+  .admin-layout .adm-toolbar > .adm-select,
+  .admin-layout .adm-toolbar > .adm-input,
+  .admin-layout .adm-toolbar > .adm-search { flex: 1 1 100%; max-width: none; }
+  /* min-width:0 lets the tab row shrink to the screen and scroll inside itself (its own overflow-x);
+     without it the last tab ("Cancelled") was cut off past the right edge. */
+  .admin-layout .adm-toolbar > .adm-segmented { flex: 1 1 100%; min-width: 0; }
+  .admin-layout .adm-segmented > * { flex-shrink: 0; }
+}
+
+/* Works as a wrapper (<label class="adm-search"><Icon/><input/></label>) or on the <input> itself. */
+.admin-layout .adm-search {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  flex: 1 1 220px;
+  max-width: 360px;
+  min-width: 0;
+  margin: 0;
+}
+.admin-layout .adm-search > svg {
+  position: absolute;
+  left: 12px;
+  color: var(--sz-muted);
+  pointer-events: none;
+}
+.admin-layout .adm-search input,
+.admin-layout input.adm-search {
+  width: 100%;
+  height: 36px;
+  padding: 0 12px 0 34px;
+  border: 1px solid var(--sz-border);
+  border-radius: 8px;
+  background: var(--sz-card);
+  color: var(--sz-text);
+  font-size: 14px;
+}
+.admin-layout input.adm-search { padding-left: 12px; }
+.admin-layout .adm-search input:focus,
+.admin-layout input.adm-search:focus {
+  outline: 0;
+  border-color: var(--sz-primary);
+  box-shadow: 0 0 0 3px rgba(111, 123, 247, 0.25);
+}
+
+/* ================= Table ================= */
+.admin-layout .adm-table-wrap {
+  width: 100%;
+  overflow-x: auto; /* the only place a wide table may scroll sideways */
+  -webkit-overflow-scrolling: touch;
+}
+.admin-layout table.adm-table {
+  width: 100%;
+  margin: 0;
+  border-collapse: collapse;
+  font-size: 14px;
+  color: var(--sz-text);
+}
+.admin-layout .adm-table th {
+  padding: 10px 16px;
+  background: var(--sz-bg);
+  border-bottom: 1px solid var(--sz-border);
+  color: var(--sz-muted);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-align: left;
+  white-space: nowrap;
+}
+.admin-layout .adm-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--sz-border);
+  vertical-align: middle;
+}
+.admin-layout .adm-table tbody tr:last-child td { border-bottom: 0; }
+.admin-layout .adm-table tbody tr:hover td { background: #FAFBFE; }
+.admin-layout .adm-table .num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.admin-layout .adm-table .mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12.5px;
+  color: var(--sz-muted);
+}
+.admin-layout .adm-table .actions {
+  text-align: right;
+  white-space: nowrap;
+}
+.admin-layout .adm-table .actions > * + * { margin-left: 4px; }
+
+/* ================= Badge ================= */
+.admin-layout .adm-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 22px;
+  padding: 0 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+  background: #F1F2F5;
+  color: #474D5C;
+}
+.admin-layout .adm-badge svg { font-size: 12px; flex-shrink: 0; }
+.admin-layout .adm-badge.good     { background: #E7F6EE; color: #0B7A45; }
+.admin-layout .adm-badge.warning  { background: #FFF4DB; color: #8A5A00; }
+.admin-layout .adm-badge.critical { background: #FDECEC; color: #B4232A; }
+.admin-layout .adm-badge.info     { background: var(--sz-primary-soft); color: var(--sz-primary-strong); }
+.admin-layout .adm-badge.neutral  { background: #F1F2F5; color: #474D5C; }
+
+/* ================= Buttons ================= */
+.admin-layout .adm-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 36px;
+  padding: 0 14px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: none;
+  color: var(--sz-text);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 0.12s ease, border-color 0.12s ease, color 0.12s ease;
+}
+.admin-layout .adm-btn:focus-visible {
+  outline: 0;
+  box-shadow: 0 0 0 3px rgba(111, 123, 247, 0.25);
+}
+.admin-layout .adm-btn:disabled,
+.admin-layout .adm-btn.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+.admin-layout .adm-btn.primary { background: var(--sz-gradient); color: var(--sz-on-gradient); }
+.admin-layout .adm-btn.primary:hover { background: var(--sz-gradient-hover); color: var(--sz-on-gradient); }
+.admin-layout .adm-btn.secondary { background: var(--sz-card); border-color: var(--sz-border); }
+.admin-layout .adm-btn.secondary:hover { background: var(--sz-bg); border-color: #D5D8DE; }
+.admin-layout .adm-btn.ghost { color: var(--sz-muted); }
+.admin-layout .adm-btn.ghost:hover { background: var(--sz-bg); color: var(--sz-text); }
+.admin-layout .adm-btn.danger { background: var(--sz-card); border-color: #F3C5C7; color: var(--sz-danger); }
+.admin-layout .adm-btn.danger:hover { background: #FDECEC; border-color: var(--sz-danger); }
+.admin-layout .adm-btn.sm { height: 30px; padding: 0 10px; font-size: 13px; border-radius: 6px; }
+.admin-layout .adm-btn.icon { width: 36px; padding: 0; }
+.admin-layout .adm-btn.icon.sm { width: 30px; }
+
+/* Brand buttons: bootstrap btn-primary is blue; overridden inside the admin only, never globally. */
+.admin-layout .btn-primary {
+  background: var(--sz-gradient);
+  color: var(--sz-on-gradient);
+  border: 0;
+  font-weight: 600;
+}
+.admin-layout .btn-primary:hover,
+.admin-layout .btn-primary:active,
+.admin-layout .btn-primary:disabled {
+  background: var(--sz-gradient-hover);
+  color: var(--sz-on-gradient);
+}
+.admin-layout .btn:focus-visible {
+  box-shadow: 0 0 0 3px rgba(111, 123, 247, 0.25);
+  outline: 0;
+}
+
+/* ================= Forms ================= */
+.admin-layout .adm-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+  margin-bottom: 16px;
+}
+.admin-layout .adm-label {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--sz-text);
+}
+.admin-layout .adm-input,
+.admin-layout .adm-select,
+.admin-layout .adm-textarea {
+  width: 100%;
+  min-width: 0;
+  height: 40px;
+  padding: 0 12px;
+  border: 1px solid var(--sz-border);
+  border-radius: 8px;
+  background: var(--sz-card);
+  color: var(--sz-text);
+  font-family: inherit;
+  font-size: 14px;
+}
+.admin-layout .adm-select { padding-right: 32px; }
+.admin-layout .adm-textarea {
+  height: auto;
+  min-height: 96px;
+  padding: 10px 12px;
+  line-height: 1.5;
+  resize: vertical;
+}
+.admin-layout .adm-input:focus,
+.admin-layout .adm-select:focus,
+.admin-layout .adm-textarea:focus {
+  outline: 0;
+  border-color: var(--sz-primary);
+  box-shadow: 0 0 0 3px rgba(111, 123, 247, 0.25);
+}
+.admin-layout .adm-input:disabled,
+.admin-layout .adm-select:disabled,
+.admin-layout .adm-textarea:disabled {
+  background: var(--sz-bg);
+  color: var(--sz-muted);
+}
+
+/* ================= Grids ================= */
+/* minmax(0,1fr) so a long word or table can't force a column wider than the screen. */
+.admin-layout .adm-grid-2,
+.admin-layout .adm-grid-3,
+.admin-layout .adm-grid-4 { display: grid; gap: 16px; }
+.admin-layout .adm-grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.admin-layout .adm-grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.admin-layout .adm-grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+@media (max-width: 1199.98px) {
+  .admin-layout .adm-grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 991.98px) {
+  .admin-layout .adm-grid-2,
+  .admin-layout .adm-grid-3 { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 575.98px) {
+  .admin-layout .adm-grid-4 { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ================= KPI stat ================= */
+.admin-layout .adm-stat {
+  min-width: 0;
+  padding: 16px;
+  background: var(--sz-card);
+  border: 1px solid var(--sz-border);
+  border-radius: var(--sz-radius);
+}
+.admin-layout .adm-stat-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--sz-muted);
+}
+.admin-layout .adm-stat-value {
+  margin-top: 6px;
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  font-variant-numeric: tabular-nums;
+  color: var(--sz-text);
+  overflow-wrap: anywhere;
+}
+.admin-layout .adm-stat-note {
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--sz-muted);
+}
+
+/* ================= States / misc ================= */
+.admin-layout .adm-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 48px 16px;
+  text-align: center;
+  color: var(--sz-muted);
+  font-size: 14px;
+}
+.admin-layout .adm-empty svg { font-size: 28px; margin-bottom: 4px; opacity: 0.6; }
+.admin-layout .adm-empty h4,
+.admin-layout .adm-empty strong { margin: 0; font-size: 15px; font-weight: 700; color: var(--sz-text); }
+
+.admin-layout .adm-muted { color: var(--sz-muted); }
+
+.admin-layout .adm-error {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 12px 14px;
+  margin-bottom: 16px;
+  border: 1px solid #F3C5C7;
+  border-radius: var(--sz-radius);
+  background: #FDF3F3;
+  color: #B4232A;
+  font-size: 14px;
+}
+
+/* Tab-like filter group. Scrolls sideways on its own if it doesn't fit a phone. */
+.admin-layout .adm-segmented {
+  display: inline-flex;
+  max-width: 100%;
+  overflow-x: auto;
+  gap: 2px;
+  padding: 3px;
+  border: 1px solid var(--sz-border);
+  border-radius: 8px;
+  background: var(--sz-bg);
+}
+.admin-layout .adm-segmented > button,
+.admin-layout .adm-segmented > a {
+  flex-shrink: 0;
+  height: 30px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 6px;
+  background: none;
+  color: var(--sz-muted);
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.admin-layout .adm-segmented > :hover { color: var(--sz-text); }
+.admin-layout .adm-segmented > .active,
+.admin-layout .adm-segmented > [aria-pressed="true"],
+.admin-layout .adm-segmented > [aria-selected="true"] {
+  background: var(--sz-gradient);
+  color: var(--sz-on-gradient);
+}
+.admin-layout .adm-segmented > :focus-visible {
+  outline: 0;
+  box-shadow: 0 0 0 3px rgba(111, 123, 247, 0.25);
+}
+
+/* Also defined in createProducts.css; kept here so any admin page can use it. */
+.admin-layout .adm-visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ================= Dark theme =================
+   Scoped to .admin-layout.theme-dark so the storefront keeps its light tokens.
+   Tokens cover most rules; the overrides below are the few colors typed in by hand. */
+.admin-layout.theme-dark {
+  color-scheme: dark; /* native inputs, selects, scrollbars */
+  --sz-text: #E6E8F2;
+  --sz-muted: #9AA3B5;
+  --sz-border: #2A3042;
+  --sz-bg: #0F1320;
+  --sz-card: #171C2C;
+  --sz-primary-strong: #A5ADFF; /* the light-mode value is too dark to read on dark cards */
+  --sz-primary-soft: #262B4D;
+  --sz-shadow: 0 1px 2px rgba(0,0,0,.4);
+  --sz-shadow-hover: 0 6px 16px rgba(0,0,0,.5);
+}
+.admin-layout.theme-dark .adm-navbar { background: rgba(23, 28, 44, 0.92); }
+.admin-layout.theme-dark .adm-table tbody tr:hover td { background: #1C2235; }
+.admin-layout.theme-dark .adm-badge,
+.admin-layout.theme-dark .adm-badge.neutral  { background: #262C3E; color: #C3C8D4; }
+.admin-layout.theme-dark .adm-badge.good     { background: #12301F; color: #5FD39A; }
+.admin-layout.theme-dark .adm-badge.warning  { background: #3A2C0A; color: #F5C451; }
+.admin-layout.theme-dark .adm-badge.critical { background: #3B1618; color: #F28B8F; }
+.admin-layout.theme-dark .adm-btn.secondary:hover { border-color: #3A4157; }
+.admin-layout.theme-dark .adm-btn.danger { border-color: #5A2A2D; }
+.admin-layout.theme-dark .adm-btn.danger:hover { background: #3B1618; }
+.admin-layout.theme-dark .adm-error { background: #2A1517; border-color: #5A2A2D; color: #F28B8F; }
+.admin-layout.theme-dark .dash-kpi .is-warn { color: #F5B544; }
+.admin-layout.theme-dark .dash-bar-row[data-tip]:hover::after { color: var(--sz-bg); } /* tooltip bg is --sz-text, now light */
+
+/* Scrollbar hidden on request (it looked heavy next to the sidebar); wheel/touch/keyboard scrolling still work. */
+.admin-layout .adm-main { scrollbar-width: none; }
+.admin-layout .adm-main::-webkit-scrollbar { display: none; }

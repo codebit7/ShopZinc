@@ -1,0 +1,116 @@
+/* Scoped under .admin-layout like every admin file: this CSS loads on every page.
+   Cards, tables, badges, buttons and stat tiles come from adminlayout.css; only dashboard-only bits live here. */
+.admin-layout .dash { display: flex; flex-direction: column; gap: 20px; min-width: 0; }
+
+/* KPI tiles: only the revenue tile carries the brand gradient, as a thin top rule. */
+.admin-layout .dash-kpi { position: relative; overflow: hidden; min-width: 0; }
+.admin-layout .dash-kpi.hero::before {
+  content: ""; position: absolute; inset: 0 0 auto 0; height: 3px; background: var(--sz-gradient);
+}
+.admin-layout .dash-kpi-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.admin-layout .dash-kpi-icon {
+  display: grid; place-items: center; flex: none; width: 32px; height: 32px; border-radius: 8px;
+  background: var(--sz-primary-soft); color: var(--sz-primary-strong); font-size: 14px;
+}
+.admin-layout .dash-kpi.hero .dash-kpi-icon { background: var(--sz-gradient); color: var(--sz-on-gradient); }
+.admin-layout .dash-kpi .adm-stat-value { overflow-wrap: anywhere; }
+.admin-layout .dash-kpi .is-warn { /* not ".alert": bootstrap pads that class */ color: #B45309; font-weight: 600; }
+
+.admin-layout .dash-grid { display: grid; gap: 16px; }
+.admin-layout .dash-grid.wide { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); }
+.admin-layout .dash-panel { display: flex; flex-direction: column; min-width: 0; }
+
+/* Bars: thin single-hue marks on a recessive track; numbers stay in text ink, not bar colour. */
+.admin-layout .dash-bars { list-style: none; margin: 0; padding: 12px 20px 16px; }
+.admin-layout .dash-bar-row {
+  position: relative;
+  display: grid; grid-template-columns: minmax(0, 120px) minmax(0, 1fr) 36px; align-items: center; gap: 12px;
+  padding: 9px 0;
+}
+.admin-layout .dash-bar-label { font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.admin-layout .dash-bar-track { height: 10px; background: var(--sz-bg); border-radius: 4px; overflow: hidden; }
+.admin-layout .dash-bar-fill {
+  display: block; height: 100%; min-width: 2px; border-radius: 0 4px 4px 0;
+  background: var(--sz-primary); transition: width .4s ease;
+}
+.admin-layout .dash-bar-value { text-align: right; font-size: 14px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.admin-layout .dash-bar-row:hover .dash-bar-fill { background: var(--sz-primary-strong); }
+/* Hover tooltip on the whole row (a bigger hit target than the thin bar). */
+.admin-layout .dash-bar-row[data-tip]:hover::after {
+  content: attr(data-tip);
+  position: absolute; right: 44px; top: -22px; z-index: 2;
+  padding: 4px 8px; border-radius: 6px; white-space: nowrap;
+  background: var(--sz-text); color: #fff; font-size: 12px; font-weight: 600;
+}
+
+/* Stock alerts */
+.admin-layout .dash-stock { list-style: none; margin: 0; padding: 4px 0; }
+.admin-layout .dash-stock li {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto auto; align-items: center; gap: 12px;
+  padding: 11px 20px; border-bottom: 1px solid var(--sz-border); font-size: 14px;
+}
+.admin-layout .dash-stock li:last-child { border-bottom: 0; }
+.admin-layout .dash-stock-name { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.admin-layout .dash-stock-qty { color: var(--sz-muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+@media (max-width: 1100px) {
+  .admin-layout .dash-grid.wide { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 480px) {
+  .admin-layout .dash-bar-row { grid-template-columns: minmax(0, 88px) minmax(0, 1fr) 32px; gap: 8px; }
+  .admin-layout .dash-stock li { gap: 8px; padding: 10px 16px; }
+}
+
+/* ---------- Sales trend (Chart.js) ---------- */
+.admin-layout .dash-trend { margin-top: 16px; margin-bottom: 16px; }
+.admin-layout .dash-trend-head { align-items: flex-start; }
+.dash-trend-title { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.dash-trend-figure { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 12px; }
+.dash-trend-total {
+  font-size: 26px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.1;
+  font-variant-numeric: tabular-nums; color: var(--sz-text);
+}
+.dash-trend-delta { display: inline-flex; align-items: center; gap: 4px; font-size: 13px; font-weight: 600; }
+.dash-trend-delta.up { color: #0B7A45; }
+.dash-trend-delta.down { color: #B4232A; }
+.dash-trend-delta.flat { color: var(--sz-muted); font-weight: 500; }
+.admin-layout.theme-dark .dash-trend-delta.up { color: #6FD3A0; }
+.admin-layout.theme-dark .dash-trend-delta.down { color: #FF8A8E; }
+.dash-trend-tools { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+.dash-trend-body { padding: 8px 16px 16px; transition: opacity 0.15s ease; }
+.dash-trend-body.loading { opacity: 0.5; }
+/* Fixed height box: Chart.js fills it (maintainAspectRatio: false). */
+.dash-trend-canvas { position: relative; height: 280px; width: 100%; }
+.dash-trend-empty {
+  height: 200px; display: grid; place-items: center;
+  color: var(--sz-muted); font-size: 14px;
+  border: 1px dashed var(--sz-border); border-radius: 10px;
+}
+@media (max-width: 575.98px) {
+  .dash-trend-canvas { height: 220px; }
+  .dash-trend-total { font-size: 22px; }
+  .dash-trend-tools { width: 100%; justify-content: space-between; }
+}
+
+/* Tabs: what the trends chart plots. Underline style, so they read as tabs, not as the range buttons. */
+.dash-trend-tabs {
+  display: flex; gap: 4px; overflow-x: auto;
+  padding: 0 16px; border-bottom: 1px solid var(--sz-border);
+}
+.dash-trend-tab {
+  flex-shrink: 0;
+  padding: 10px 12px; margin-bottom: -1px;
+  border: 0; border-bottom: 2px solid transparent;
+  background: none; color: var(--sz-muted);
+  font: inherit; font-size: 14px; font-weight: 600; cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+.dash-trend-tab:hover { color: var(--sz-text); }
+.dash-trend-tab.active { color: var(--sz-primary-strong); border-bottom-color: var(--sz-primary); }
+.dash-trend-tab:focus-visible { outline: 2px solid var(--sz-primary); outline-offset: -2px; border-radius: 6px; }
+.dash-trend-sub { font-size: 13px; color: var(--sz-muted); }
+.dash-trend-note {
+  display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+  margin: 4px 0 8px; font-size: 13px; color: var(--sz-muted);
+}
+.dash-trend-note a { color: var(--sz-primary-strong); }

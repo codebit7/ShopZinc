@@ -1,0 +1,205 @@
+/* Help + legal pages (contact, shipping, returns, terms, privacy). info- prefix so nothing leaks;
+   same calm language as account.css: hairline borders, no gradients, text does the work. */
+
+.info {
+  display: grid;
+  grid-template-columns: 200px minmax(0, 1fr);
+  grid-template-areas:
+    "head head"
+    "toc  body";
+  gap: 28px 48px;
+  align-items: start;
+  padding-top: 32px;
+  padding-bottom: 64px;
+  color: var(--sz-text);
+}
+.info--single {
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas: "head" "body";
+}
+
+/* ---------- Header ---------- */
+.info-head {
+  grid-area: head;
+  min-width: 0;
+  max-width: 72ch;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--sz-border);
+}
+.info-title {
+  margin: 0;
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: -.01em;
+  line-height: 1.2;
+}
+.info-subtitle {
+  margin: 8px 0 0;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--sz-muted);
+}
+.info-updated {
+  margin: 12px 0 0;
+  font-size: 13px;
+  color: var(--sz-muted);
+}
+.info-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 16px 0 0;
+  padding: 10px 14px;
+  border: 1px solid var(--sz-border);
+  border-radius: var(--sz-radius);
+  background: var(--sz-card);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--sz-muted);
+}
+.info-notice svg { flex: 0 0 auto; margin-top: 2px; font-size: 15px; }
+
+/* ---------- On this page ---------- */
+.info-toc {
+  grid-area: toc;
+  position: sticky;
+  top: 16px;
+  min-width: 0;
+}
+.info-toc-title {
+  margin: 0 0 8px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--sz-muted);
+}
+.info-toc ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-left: 1px solid var(--sz-border);
+}
+.info-toc a {
+  display: block;
+  margin-left: -1px;
+  padding: 6px 12px;
+  border-left: 2px solid transparent;
+  color: var(--sz-muted);
+  font-size: 14px;
+  line-height: 1.4;
+  text-decoration: none;
+}
+.info-toc a:hover { color: var(--sz-text); border-left-color: var(--sz-primary); }
+.info-toc a:focus-visible { outline: 2px solid var(--sz-primary); outline-offset: -2px; }
+
+/* ---------- Body text ---------- */
+.info-body {
+  grid-area: body;
+  min-width: 0;
+  max-width: 72ch;
+  font-size: 15px;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+.info-body > p:first-child { margin-top: 0; }
+.info-lead { margin: 0 0 8px; font-size: 16px; }
+.info-section {
+  padding-top: 28px;
+  scroll-margin-top: 16px;
+}
+.info-section:first-child { padding-top: 0; }
+.info-section h2 {
+  margin: 0 0 10px;
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+.info-section p { margin: 0 0 12px; }
+.info-section ul,
+.info-section ol { margin: 0 0 12px; padding-left: 22px; }
+.info-section li { margin: 4px 0; }
+.info-body a {
+  color: var(--sz-primary-strong);
+  font-weight: 600;
+  text-decoration: none;
+}
+.info-body a:hover { text-decoration: underline; }
+.info-body strong { font-weight: 600; }
+
+/* A quiet highlighted fact (e.g. "7-day returns"). */
+.info-callout {
+  margin: 0 0 12px;
+  padding: 12px 16px;
+  border-radius: var(--sz-radius);
+  background: var(--sz-primary-soft);
+  color: var(--sz-text);
+}
+
+/* ---------- Contact cards ---------- */
+.info-cards {
+  list-style: none;
+  margin: 0 0 12px;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+}
+.info-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  height: 100%;
+  padding: 16px 18px;
+  background: var(--sz-card);
+  border: 1px solid var(--sz-border);
+  border-radius: var(--sz-radius);
+  min-width: 0;
+}
+.info-card-icon {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--sz-primary-soft);
+  color: var(--sz-primary-strong);
+  font-size: 17px;
+}
+.info-card-main { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.info-card-label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--sz-muted);
+}
+.info-card-value { font-size: 15px; line-height: 1.5; overflow-wrap: anywhere; }
+.info-body .info-card-value a { font-weight: 600; }
+.info-empty {
+  margin: 0 0 12px;
+  padding: 16px 18px;
+  border: 1px dashed var(--sz-border);
+  border-radius: var(--sz-radius);
+  color: var(--sz-muted);
+}
+
+/* ---------- Phones: TOC would push the content down a whole screen, so hide it. ---------- */
+@media (max-width: 860px) {
+  .info {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "head" "body";
+    gap: 20px;
+    padding-top: 20px;
+    padding-bottom: 48px;
+  }
+  .info-toc { display: none; }
+}
+
+@media (max-width: 560px) {
+  .info-title { font-size: 24px; }
+  .info-subtitle { font-size: 15px; }
+  .info-section h2 { font-size: 17px; }
+  .info-cards { grid-template-columns: minmax(0, 1fr); }
+}

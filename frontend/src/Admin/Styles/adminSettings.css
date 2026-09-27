@@ -1,0 +1,71 @@
+/* Admin panel Settings page. Uses the shared adm-* card styles and --sz-* tokens.
+   The small theme previews use fixed colours on purpose: they show light/dark, whatever theme is on. */
+
+.as-group {
+  display: grid;
+  grid-template-columns: minmax(180px, 260px) minmax(0, 1fr);
+  gap: 16px 32px;
+  padding: 20px 20px;
+  border-bottom: 1px solid var(--sz-border);
+}
+.as-group:last-child { border-bottom: 0; }
+.as-group-text { display: flex; flex-direction: column; gap: 4px; }
+.as-group-text strong { font-size: 15px; color: var(--sz-text); }
+.as-group-text span { font-size: 13px; color: var(--sz-muted); }
+
+.as-options { display: grid; gap: 12px; }
+.as-options--theme { grid-template-columns: repeat(3, minmax(0, 1fr)); max-width: 560px; }
+.as-options--sidebar { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 420px; }
+
+.as-option {
+  position: relative;
+  display: flex; flex-direction: column; align-items: stretch; gap: 8px;
+  padding: 10px;
+  border: 2px solid var(--sz-border); border-radius: 12px;
+  background: var(--sz-card); color: var(--sz-text);
+  font: inherit; text-align: left; cursor: pointer;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.as-option:hover { border-color: var(--sz-primary); }
+.as-option.on { border-color: var(--sz-primary); box-shadow: 0 0 0 3px var(--sz-primary-soft); }
+.as-option:focus-visible { outline: 2px solid var(--sz-primary); outline-offset: 2px; }
+.as-option-label { display: flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 600; }
+.as-option-note { font-size: 12px; color: var(--sz-muted); }
+.as-check { margin-left: auto; color: var(--sz-primary-strong); }
+
+/* Row style for the sidebar options: icon + text side by side. */
+.as-option--row { flex-direction: row; align-items: center; gap: 12px; padding: 12px; }
+.as-option-icon {
+  flex: 0 0 36px; height: 36px; border-radius: 8px;
+  display: grid; place-items: center;
+  background: var(--sz-bg); color: var(--sz-primary-strong); font-size: 17px;
+}
+.as-option-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+
+/* ---------- Theme previews ---------- */
+.as-preview {
+  display: flex; overflow: hidden;
+  height: 72px; border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+.as-preview-half { flex: 1; display: flex; min-width: 0; }
+.as-p-side { flex: 0 0 26%; }
+.as-p-body { flex: 1; display: flex; flex-direction: column; gap: 6px; padding: 10px 8px; }
+.as-p-line { height: 8px; border-radius: 4px; }
+.as-p-line.short { width: 60%; }
+.as-preview--light { background: #F5F6FA; }
+.as-preview--light .as-p-side { background: #FFFFFF; border-right: 1px solid #E6E8EE; }
+.as-preview--light .as-p-line { background: #DADDE6; }
+.as-preview--dark { background: #111522; }
+.as-preview--dark .as-p-side { background: #1A1F30; border-right: 1px solid #262C40; }
+.as-preview--dark .as-p-line { background: #343B52; }
+.as-preview--system { padding: 0; }
+
+@media (max-width: 760px) {
+  .as-group { grid-template-columns: minmax(0, 1fr); padding: 16px; }
+}
+@media (max-width: 480px) {
+  .as-options--theme { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+  .as-preview { height: 52px; }
+  .as-options--sidebar { grid-template-columns: minmax(0, 1fr); }
+}

@@ -1,0 +1,296 @@
+:root {
+    /* repointed to the brand tokens: other files still read these names */
+    --primary-blue: var(--sz-primary);
+    --text-grey: #7A7A7A;
+    --background-grey: #F2F3F5;
+    --white: #FFFFFF;
+}
+
+/* All classes are sz-footer__* on purpose: the old bare .icon rule here leaked into admin buttons. */
+.sz-footer {
+    margin-top: 40px;
+    background: var(--sz-card);
+    border-top: 1px solid var(--sz-border);
+    color: var(--sz-text);
+    font-family: var(--sz-font);
+}
+
+.sz-footer a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.sz-footer a:focus-visible {
+    outline: 2px solid var(--sz-primary);
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+
+/* list reset per class: bootstrap's reboot adds ul padding/margin; the rules below still override it */
+.sz-footer__trust,
+.sz-footer__links,
+.sz-footer__contact,
+.sz-footer__pills,
+.sz-footer__social {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* ---- trust strip ---- */
+.sz-footer__trust {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 24px;
+    padding: 28px 0;
+    border-bottom: 1px solid var(--sz-border);
+}
+
+.sz-footer__trust-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    line-height: 1.35;
+}
+
+.sz-footer__trust-item strong {
+    display: block;
+    font-weight: 700;
+}
+
+.sz-footer__trust-text {
+    display: block;
+    font-size: 13px;
+    color: var(--sz-muted);
+}
+
+.sz-footer__trust-icon {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    background: var(--sz-primary-soft);
+    color: var(--sz-primary-strong);
+    font-size: 19px;
+}
+
+/* ---- main: brand + link columns ---- */
+.sz-footer__main {
+    display: grid;
+    grid-template-columns: minmax(220px, 1.6fr) repeat(4, minmax(0, 1fr));
+    gap: 32px;
+    padding: 32px 0 28px;
+}
+
+.sz-footer__logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* mirrors .sz-nav__logo-mark so the footer mark matches the navbar */
+.sz-footer__logo-mark {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: var(--sz-gradient);
+    color: var(--sz-on-gradient);
+    font-size: 19px;
+    flex-shrink: 0;
+}
+
+.sz-footer__logo-text {
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+}
+
+.sz-footer__tagline {
+    max-width: 300px;
+    margin: 14px 0 0;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--sz-muted);
+}
+
+.sz-footer__contact {
+    display: grid;
+    gap: 10px;
+    margin-top: 20px;
+    font-size: 14px;
+    color: var(--sz-muted);
+}
+
+.sz-footer__contact li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    overflow-wrap: anywhere;
+}
+
+.sz-footer__contact svg {
+    flex-shrink: 0;
+    margin-top: 3px;
+    font-size: 15px;
+}
+
+.sz-footer__contact a:hover {
+    color: var(--sz-primary-strong);
+}
+
+.sz-footer__heading {
+    margin: 0 0 14px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--sz-text);
+}
+
+.sz-footer__links li + li {
+    margin-top: 10px;
+}
+
+.sz-footer__links a {
+    display: inline-block;
+    font-size: 14px;
+    color: var(--sz-muted);
+    transition: color .15s;
+}
+
+.sz-footer__links a:hover {
+    color: var(--sz-primary-strong);
+}
+
+/* ---- payments ---- */
+.sz-footer__pay {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 20px 0;
+    border-top: 1px solid var(--sz-border);
+}
+
+.sz-footer__pay-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--sz-muted);
+}
+
+.sz-footer__pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.sz-footer__pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 10px;
+    border: 1px solid var(--sz-border);
+    border-radius: 999px;
+    background: var(--sz-bg);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--sz-text);
+}
+
+.sz-footer__pill svg {
+    font-size: 14px;
+    color: var(--sz-muted);
+}
+
+/* ---- bottom bar ---- */
+.sz-footer__bottom {
+    background: var(--sz-bg);
+    border-top: 1px solid var(--sz-border);
+}
+
+.sz-footer__bottom-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 16px 0;
+}
+
+.sz-footer__bottom-inner p {
+    margin: 0;
+    font-size: 13px;
+    color: var(--sz-muted);
+}
+
+.sz-footer__social {
+    display: flex;
+    gap: 8px;
+}
+
+.sz-footer__social a {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border: 1px solid var(--sz-border);
+    border-radius: 50%;
+    background: var(--sz-card);
+    color: var(--sz-muted);
+    font-size: 15px;
+    transition: color .15s, border-color .15s;
+}
+
+.sz-footer__social a:hover {
+    color: var(--sz-primary-strong);
+    border-color: var(--sz-primary);
+}
+
+/* ---- responsive ---- */
+@media (max-width: 1024px) {
+    .sz-footer__trust {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    /* brand takes its own row, the four link groups share the next one */
+    .sz-footer__main {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .sz-footer__brand {
+        grid-column: 1 / -1;
+    }
+
+    .sz-footer__tagline {
+        max-width: 420px;
+    }
+}
+
+@media (max-width: 768px) {
+    .sz-footer__main {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 28px 20px;
+        padding: 32px 0 24px;
+    }
+}
+
+@media (max-width: 600px) {
+    .sz-footer__trust {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        padding: 24px 0;
+    }
+
+    /* bigger tap targets on phones */
+    .sz-footer__links li + li {
+        margin-top: 4px;
+    }
+
+    .sz-footer__links a {
+        padding: 6px 0;
+    }
+}

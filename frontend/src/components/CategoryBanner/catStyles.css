@@ -1,0 +1,304 @@
+/* Kept: other components read these globals */
+:root {
+  --light-blue: var(--sz-primary-soft);
+  --primary-blue: var(--sz-primary-strong); /* rebrand: strong indigo stays readable as text */
+  --text-grey: #606770;
+  --background-grey: #f2f3f5;
+  --white: #ffffff;
+  --light-grey: #dee2e7;
+}
+
+.category-banner-container {
+  display: flex;
+  background-color: var(--sz-card);
+  margin-top: 24px;
+  border: 1px solid var(--sz-border);
+  padding: 16px;
+  gap: 16px;
+  overflow: hidden;
+  border-radius: 8px;
+  height: 380px;
+}
+
+.category-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 0 0 200px;
+  overflow-y: auto;
+}
+
+.category-item {
+  padding: 9px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 6px;
+  color: var(--sz-muted);
+  transition: background 0.15s, color 0.15s;
+}
+
+.category-item:hover {
+  background: var(--sz-bg);
+  color: var(--sz-text);
+}
+
+/* Inset bar marks the active row without another filled block */
+.active-category,
+.active-category:hover {
+  background: var(--sz-primary-soft);
+  color: var(--sz-primary-strong);
+  font-weight: 700;
+  box-shadow: inset 3px 0 0 var(--sz-primary);
+}
+
+.banner {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+}
+
+.banner img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Dark fade behind the text: the hero photo is dark, so dark text on it was unreadable. */
+.banner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.25) 45%, rgba(0, 0, 0, 0) 70%);
+  pointer-events: none;
+}
+
+.banner-text {
+  color: #fff;
+  position: absolute;
+  left: 40px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+}
+
+.trending-text {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--sz-accent);
+  margin: 0 0 6px;
+}
+
+.electronic-text {
+  font-size: 40px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin: 0 0 20px;
+}
+
+.learn-btn {
+  background: var(--sz-gradient);
+  color: var(--sz-on-gradient);
+  padding: 11px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  border: none;
+  font-size: 15px;
+  font-weight: 700;
+  transition: background 0.15s;
+}
+
+.learn-btn:hover {
+  background: var(--sz-gradient-hover);
+}
+
+.learn-btn:focus-visible,
+.join-btn:focus-visible,
+.login-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(111, 123, 247, .25);
+}
+
+.my-user-box {
+  display: flex;
+  flex: 0 0 200px;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.user-card {
+  background: var(--sz-bg);
+  border: 1px solid var(--sz-border);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  gap: 8px;
+}
+
+.userBox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-image {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.user-text {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--sz-text);
+  word-break: break-word;
+}
+
+.join-btn,
+.login-btn {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.join-btn {
+  background: var(--sz-gradient);
+  color: var(--sz-on-gradient);
+  border: none;
+}
+
+.join-btn:hover {
+  background: var(--sz-gradient-hover);
+}
+
+.login-btn {
+  background: var(--sz-card);
+  color: var(--sz-primary-strong);
+  border: 1px solid var(--sz-border);
+}
+
+.login-btn:hover {
+  border-color: var(--sz-primary);
+}
+
+.offer-card,
+.quote-card {
+  flex: 1;
+  padding: 14px;
+  font-size: 15px;
+  line-height: 1.4;
+  border-radius: 6px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+/* Two different treatments so the promo tiles don't read as one repeated card */
+.offer-card {
+  background: var(--sz-text);
+  color: #fff;
+}
+
+.quote-card {
+  background: var(--sz-primary-soft);
+  color: var(--sz-primary-strong);
+  border: 1px solid #DCE0FF;
+}
+
+@media (max-width: 1024px) {
+  .category-sidebar,
+  .my-user-box {
+    flex-basis: 170px;
+  }
+}
+
+@media (max-width: 768px) {
+  .category-banner-container {
+    flex-direction: column;
+    height: auto;
+    padding: 12px;
+    gap: 12px;
+  }
+
+  /* Horizontal chip row instead of a tall list on phones */
+  .category-sidebar {
+    flex: none;
+    flex-direction: row;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .category-sidebar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .category-item {
+    white-space: nowrap;
+    border: 1px solid var(--sz-border);
+  }
+
+  .active-category,
+  .active-category:hover {
+    box-shadow: none;
+    border-color: var(--sz-primary);
+  }
+
+  .banner {
+    flex: none;
+    height: 200px;
+  }
+
+  .banner-text {
+    left: 20px;
+  }
+
+  .trending-text {
+    font-size: 15px;
+  }
+
+  .electronic-text {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+
+  .learn-btn {
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+
+  .my-user-box {
+    flex: none;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .my-user-box > * {
+    flex: 1 1 160px;
+  }
+}
+
+@media (max-width: 480px) {
+  .banner {
+    height: 170px;
+  }
+
+  .offer-card,
+  .quote-card {
+    font-size: 13px;
+    padding: 10px;
+  }
+}

@@ -1,0 +1,63 @@
+/* Scoped under .admin-layout: admin CSS loads on every page. Table, fields, buttons and the
+   drawer come from adminlayout.css / inventory.css — only the Home sections bits live here. */
+.admin-layout .hs { display: flex; flex-direction: column; gap: 20px; min-width: 0; }
+.admin-layout .hs .adm-error { margin-bottom: 0; }
+.admin-layout .hs-error { align-items: center; justify-content: space-between; gap: 12px; }
+
+.admin-layout .hs-toggle { display: inline-flex; align-items: center; gap: 8px; margin: 0; cursor: pointer; white-space: nowrap; }
+.admin-layout .hs-toggle input { width: 16px; height: 16px; accent-color: var(--sz-primary); }
+.admin-layout .hs-order { white-space: nowrap; }
+.admin-layout .hs-order > * + * { margin-left: 4px; }
+
+/* Drawer is a little wider here to fit the preview grid; still full width on phones (inventory.css). */
+@media (min-width: 769px) {
+  .admin-layout .hs-drawer { width: min(520px, 100vw); }
+}
+
+.admin-layout .hs-cover {
+  aspect-ratio: 16 / 9;
+  border: 1px solid var(--sz-border);
+  border-radius: 8px;
+  background: var(--sz-bg);
+  overflow: hidden;
+}
+.admin-layout .hs-cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.admin-layout .hs-cover-empty { height: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; }
+.admin-layout .hs-upload { align-self: flex-start; margin: 0; }
+
+/* Two inputs per row; minmax(0,1fr) so number inputs can't push the drawer wider. */
+.admin-layout .hs-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 12px; }
+
+.admin-layout .hs-preview-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 4px 12px;
+  margin: 24px 0 12px;
+  padding-top: 16px;
+  border-top: 1px solid var(--sz-border);
+}
+.admin-layout .hs-preview-head h5 { margin: 0; font-size: 14px; font-weight: 700; }
+
+.admin-layout .hs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 12px; }
+.admin-layout .hs-item { min-width: 0; font-size: 13px; }
+.admin-layout .hs-item img,
+.admin-layout .hs-item-noimg {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border: 1px solid var(--sz-border);
+  border-radius: 8px;
+  background: var(--sz-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.admin-layout .hs-item-name {
+  margin-top: 6px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

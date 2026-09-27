@@ -1,0 +1,38 @@
+/* Scoped under .admin-layout: this file loads on every page. Table, badges, buttons, toolbar
+   come from adminlayout.css — only product-list-specific rules live here. */
+.admin-layout .vp { display: flex; flex-direction: column; gap: 20px; min-width: 0; }
+
+.admin-layout .vp-product { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.admin-layout .vp-thumb {
+  flex: none; width: 44px; height: 44px; border-radius: 8px; overflow: hidden;
+  background: var(--sz-bg); border: 1px solid var(--sz-border);
+  display: grid; place-items: center;
+}
+.admin-layout .vp-thumb img { width: 100%; height: 100%; object-fit: cover; }
+/* Long names truncate instead of stretching the table. */
+.admin-layout .vp-name {
+  font-weight: 600; max-width: 280px;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.admin-layout .vp-rating { display: inline-flex; align-items: center; gap: 4px; }
+.admin-layout .vp-rating svg { color: #F5A524; font-size: 12px; }
+
+/* Price boxes only hold a number; the toolbar's 160px default made the row wrap early. */
+.admin-layout .adm-toolbar > .adm-input.vp-price { min-width: 110px; width: 110px; }
+/* Filter row opens under the search row; the card's toolbar rule only borders the first one. */
+.admin-layout .adm-card > .vp-filters { background: var(--sz-bg); }
+.admin-layout .vp-filter-btn.open { border-color: var(--sz-primary); color: var(--sz-primary); }
+.admin-layout .vp-filter-count {
+  display: inline-grid; place-items: center; min-width: 18px; height: 18px; padding: 0 5px;
+  border-radius: 9px; background: var(--sz-primary); color: #fff; font-size: 11px; font-weight: 600;
+}
+.admin-layout .vp-check { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; cursor: pointer; }
+
+/* Pagination component brings its own CSS; this just gives it breathing room and lets it wrap. */
+.admin-layout .vp-footer { padding: 12px 16px; border-top: 1px solid var(--sz-border); }
+.admin-layout .vp-footer .pagination-container { margin: 0; padding: 0; border: 0; }
+.admin-layout .vp-footer .pagination-buttons { flex-wrap: wrap; }
+
+@media (max-width: 768px) {
+  .admin-layout .vp-name { max-width: 160px; }
+}

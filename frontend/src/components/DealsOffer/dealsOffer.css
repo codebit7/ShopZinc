@@ -1,0 +1,178 @@
+/* Kept: other components read these globals */
+:root {
+  --light-blue: var(--sz-primary-soft);
+  --primary-blue: var(--sz-primary-strong);
+  --text-grey: #606770;
+  --background-grey: #f2f3f5;
+  --white: #ffffff;
+  --light-grey: #dee2e7;
+}
+
+.deals-offers-container {
+  display: flex;
+  align-items: stretch;
+  margin-top: 24px;
+  border: 1px solid var(--sz-border);
+  border-radius: var(--sz-radius);
+  background: var(--sz-card);
+  overflow: hidden;
+  padding: 0 !important;
+}
+
+.deals-info {
+  flex: 0 0 25%;
+  padding: 24px;
+  border-right: 1px solid var(--sz-border);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+}
+
+.deals-title {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--sz-text);
+  margin: 0 0 4px;
+}
+
+.deals-subtitle {
+  font-size: 14px;
+  color: var(--sz-muted);
+  margin: 0;
+}
+
+.countdown {
+  display: flex;
+  gap: 6px;
+}
+
+/* Countdown is one of the few places the brand gradient is used as a fill */
+.time-box {
+  background: var(--sz-gradient);
+  color: var(--sz-on-gradient);
+  padding: 6px 4px;
+  border-radius: 6px;
+  text-align: center;
+  font-size: 12px;
+  min-width: 48px;
+}
+
+.time-box span {
+  display: block;
+  font-size: 17px;
+  font-weight: 800;
+  line-height: 1.2;
+  font-variant-numeric: tabular-nums;
+}
+
+.time-box small {
+  font-size: 11px;
+  font-weight: 600;
+  opacity: 0.8;
+}
+
+.deals-items {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  overflow-x: auto;
+  /* Thin visible scrollbar: with it hidden, extra deals looked cut off instead of scrollable. */
+  scrollbar-width: thin;
+  /* scrollbar-width: none;
+  -ms-overflow-style: none; */
+}
+
+/* .deals-items::-webkit-scrollbar {
+  display: none;
+} */
+
+.deal-item {
+  text-align: center;
+  padding: 16px 12px;
+  border-left: 1px solid var(--sz-border);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  /* Was 150px: 6 deals did not fit next to the info block on a normal laptop screen. */
+  min-width: 120px;
+  flex: 1;
+  transition: background 0.15s;
+}
+
+.deal-item:first-child {
+  border-left: none;
+}
+
+.deal-item:hover {
+  background: var(--sz-bg);
+}
+
+.deal-item img {
+  width: 110px;
+  height: 110px;
+  object-fit: contain;
+  transition: transform 0.25s ease;
+}
+
+.deal-item:hover img {
+  transform: scale(1.06);
+}
+
+.deal-item p {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--sz-text);
+}
+
+.deals-discount {
+  background: var(--sz-gradient);
+  padding: 3px 10px;
+  color: var(--sz-on-gradient);
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 768px) {
+  .deals-offers-container {
+    flex-direction: column;
+  }
+
+  .deals-info {
+    flex: none;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    border-right: none;
+    border-bottom: 1px solid var(--sz-border);
+    padding: 16px;
+    gap: 12px;
+  }
+
+  .deal-item {
+    flex: 0 0 auto;
+    min-width: 140px;
+  }
+
+  .deal-item img {
+    width: 90px;
+    height: 90px;
+  }
+}
+
+@media (max-width: 480px) {
+  .time-box {
+    min-width: 42px;
+  }
+
+  .time-box span {
+    font-size: 14px;
+  }
+}
